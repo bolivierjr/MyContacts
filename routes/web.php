@@ -17,4 +17,4 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/contacts', 'ContactController@index')->name('contacts');
+Route::resource('contacts', 'ContactController');
