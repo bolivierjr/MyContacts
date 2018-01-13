@@ -13,7 +13,7 @@ class CreatePeopleTable extends Migration
      */
     public function up()
     {
-        Schema::create('People', function (Blueprint $table) {
+        Schema::create('people', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('firstname', 64)->nullable(false);
@@ -25,7 +25,7 @@ class CreatePeopleTable extends Migration
             $table->string('email', 64)->nullable();
             $table->string('phone', 20)->nullable();
             $table->date('last_contact')->nullable();
-            $table->timestampTz('created_at')->nullable(false);
+            $table->timestampTz('created_at');
         });
     }
 

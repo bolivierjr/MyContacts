@@ -30,8 +30,8 @@ class User extends Authenticatable
     /**
      *
      */
-    public function people()
+    public function peoples()
     {
-        $this->hasMany(App\People);
+        return $this->hasMany('App\People');
     }
 }

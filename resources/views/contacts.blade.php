@@ -13,10 +13,11 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-
-                <div class="panel-body">
-
-                </div>
+                @foreach($peoples as $people)
+                    <div class="panel-heading">
+                        <p>{{ $people->firstname }}</p>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>

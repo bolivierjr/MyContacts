@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Validator;
+use App\User;
+use App\People;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -24,7 +26,12 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return view('contacts');
+        //  Find all contacts for authenticated user
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+        // Pass the array of contacts to the contacts page for viewing
+        return view('contacts')->with('peoples', $user->peoples);
     }
 
     /**
@@ -59,12 +66,29 @@ class ContactController extends Controller
             ])->validate();
         } else {  // If not, then do not require those fields
             Validator::make($request->all(), [
-                'firstname' => 'required|string|max:64|regex:/[a-zA-Z]/',
+                'firstname' => 'required|string|max:64|regex:/([a-zA-Z])$/',
                 'lastname' => 'required|string|max:64',
                 'email' => 'sometimes|nullable|email|max:64',
                 'phone' => 'sometimes|nullable|max:20',
             ])->validate();
         }
+
+        $contacts = new People();
+
+        $contacts->user_id = auth()->user()->id;
+        $contacts->firstname = $request->input('firstname');
+        $contacts->lastname = $request->input('lastname');
+        $contacts->email = $request->input('email');
+        $contacts->phone = $request->input('phone');
+        $contacts->address = $request->input('address');
+        $contacts->city = $request->input('city');
+        $contacts->state = $request->input('state');
+        $contacts->zipcode = $request->input('zipcode');
+
+        $contacts->save();
+
+        return redirect('/contacts');
+
 
     }
 
