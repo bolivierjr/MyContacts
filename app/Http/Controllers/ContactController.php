@@ -178,6 +178,9 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
+        $contact = People::find($id);
+        $contact->delete();
 
+        return redirect('/contacts');
     }
 }

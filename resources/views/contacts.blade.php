@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+  <!-- Main Contacts component -->
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
@@ -26,11 +27,17 @@
                 <p>Add some contacts!</p>
               @endif
               <p>{{ $people->firstname }}</p>
+
+              <!-- Button to edit the contact -->
               <a class="pull-left" href="/contacts/{{ $people->id }}/edit">Edit</a>
-                <form action="{{ route('contacts.delete') }}">
-                  <a class="pull-right" href="">Delete</a>
-                  <input type="hidden" name="_method" value="DELETE">
-                </form>
+
+              <!-- Button to delete contact from db -->
+              <form method="POST" action="{{ route('contacts.destroy', ['id' => $people->id]) }}">
+                {{ csrf_field() }}
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="btn btn-primary btn-sm pull-right">Delete</button>
+              </form>
+
               <div class="clearfix"></div>
             </div>
           @endforeach
