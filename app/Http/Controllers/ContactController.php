@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Validator;
 use App\User;
 use App\People;
+use Auth;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -28,10 +29,10 @@ class ContactController extends Controller
     {
         //  Find all contacts for authenticated user
         $user_id = auth()->user()->id;
-        $user = User::find($user_id);
+        $user = User::find($user_id)->peoples;
 
         // Pass the array of contacts to the contacts page for viewing
-        return view('contacts')->with('peoples', $user->peoples);
+        return view('contacts')->with('peoples', $user);
     }
 
     /**
@@ -182,5 +183,19 @@ class ContactController extends Controller
         $contact->delete();
 
         return redirect('/contacts');
+    }
+
+    // In case I needed the api for ajax request
+    public function getJson()
+    {
+        if (Auth::check())
+        {
+            $user_id = Auth::id();
+            $contacts = User::find($user_id)->peoples;
+
+            return response()->json($contacts);
+        }
+
+        return 'You are not authenticated';
     }
 }

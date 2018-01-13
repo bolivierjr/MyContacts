@@ -10,7 +10,7 @@ class People extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'firstname', 'lastname', 'address', 'city',
+        'user_id', 'firstname', 'lastname', 'address', 'city',
         'state', 'zipcode', 'email', 'phone', 'last_contacted',
     ];
 

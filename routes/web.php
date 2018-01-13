@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('api/contacts', 'ContactController@getJson');
+
 Auth::routes();
 
 Route::resource('contacts', 'ContactController');

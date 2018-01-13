@@ -129,12 +129,12 @@
 
               <div class="form-group">
                 <div class="col-md-8 col-md-offset-4">
-                  <button type="submit" class="btn btn-primary">
+                  <button type="submit" class="btn btn-sm btn-primary">
                     Save
                   </button>
                 </div>
                 <div class="col-md-8 col-md-offset-4">
-                  <a class="btn btn-default pull-left" href="/contacts">
+                  <a class="btn btn-default btn-sm pull-left" href="/contacts">
                     Back
                   </a>
                 </div>
