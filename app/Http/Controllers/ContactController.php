@@ -73,6 +73,7 @@ class ContactController extends Controller
             ])->validate();
         }
 
+        // Create a new contact from form inputs and store to db
         $contacts = new People();
 
         $contacts->user_id = auth()->user()->id;
@@ -111,7 +112,16 @@ class ContactController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Search for contact to edit
+        $contact = People::find($id);
+
+        // If the user does not own the contact, redirect back
+        if (auth()->user()->id != $contact->user_id)
+        {
+           return redirect('/contacts');
+        }
+
+        return view('edit')->with('contact', $contact);
     }
 
     /**
@@ -123,7 +133,41 @@ class ContactController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Checks to see if address, city, state, zip field is populated. If so, then require all.
+        if ($request->address || $request->city || $request->state || $request->zipcode) {
+            Validator::make($request->all(), [
+                'firstname' => 'required|string|max:64',
+                'lastname' => 'required|string|max:64',
+                'email' => 'sometimes|nullable|email|max:64',
+                'phone' => 'sometimes|nullable|max:20',
+                'address' => 'required|string|max:64',
+                'city' => 'required|string|max:32',
+                'state' => 'required|string|size:2|regex:/([a-zA-Z])$/',
+                'zipcode' => 'required|string|max:10|regex:/^[0-9]{5}(\-[0-9]{4})?$/',
+            ])->validate();
+        } else {  // If not, then do not require those fields
+            Validator::make($request->all(), [
+                'firstname' => 'required|string|max:64|regex:/([a-zA-Z])$/',
+                'lastname' => 'required|string|max:64',
+                'email' => 'sometimes|nullable|email|max:64',
+                'phone' => 'sometimes|nullable|max:20',
+            ])->validate();
+        }
+
+        $contact = People::find($id);
+
+        $contact->firstname = $request->input('firstname');
+        $contact->lastname = $request->input('lastname');
+        $contact->email = $request->input('email');
+        $contact->phone = $request->input('phone');
+        $contact->address = $request->input('address');
+        $contact->city = $request->input('city');
+        $contact->state = $request->input('state');
+        $contact->zipcode = $request->input('zipcode');
+
+        $contact->save();
+
+        return redirect('/contacts');
     }
 
     /**
@@ -134,6 +178,6 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }
