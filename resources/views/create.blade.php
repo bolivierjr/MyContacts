@@ -3,140 +3,187 @@
 @section('content')
   <!-- Create form component -->
   <div class="container">
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="panel panel-default">
+    <div class="row justify-content-md-center mt-5">
+      <div class="col-md-8">
+        <div class="card">
 
-          <div class="panel-heading">
+          <div class="card-header">
             <strong>Add Contact</strong>
           </div>
 
-          <div class="panel-body">
+          <div class="card-body">
             <form class="form-horizontal" method="POST" action="{{ route('contacts.store') }}">
               {{ csrf_field() }}
 
-              <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
-                <label for="firstname" class="col-md-4 control-label">First Name</label>
+              <div class="form-group row">
+                <label for="firstname" class="col-lg-4 col-form-label text-lg-right">First Name</label>
 
-                <div class="col-md-6">
-                  <input id="firstname" type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" autofocus>
+                <div class="col-lg-6">
+                  <input
+                      id="firstname"
+                      type="text"
+                      class="form-control{{ $errors->has('firstname') ? ' is-invalid' : '' }}"
+                      name="firstname"
+                      value="{{ old('firstname') }}"
+                      autofocus
+                  >
 
                   @if ($errors->has('firstname'))
-                    <span class="help-block">
+                    <span class="invalid-feedback">
                       <strong>{{ $errors->first('firstname') }}</strong>
                     </span>
                   @endif
                 </div>
               </div>
 
-              <div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
-                <label for="lastname" class="col-md-4 control-label">Last Name</label>
+              <div class="form-group row">
+                <label for="lastname" class="col-lg-4 col-form-label text-lg-right">Last Name</label>
 
-                <div class="col-md-6">
-                  <input id="lastname" type="text" class="form-control" name="lastname" value="{{ old('lastname') }}">
+                <div class="col-lg-6">
+                  <input
+                      id="lastname"
+                      type="text"
+                      class="form-control{{ $errors->has('lastname') ? ' is-invalid' : '' }}"
+                      name="lastname"
+                      value="{{ old('lastname') }}"
+                  >
 
                   @if ($errors->has('lastname'))
-                    <span class="help-block">
+                    <span class="invalid-feedback">
                       <strong>{{ $errors->first('lastname') }}</strong>
                     </span>
                   @endif
                 </div>
               </div>
 
-              <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                <label for="email" class="col-md-4 control-label">Email</label>
+              <div class="form-group row">
+                <label for="email" class="col-lg-4 col-form-label text-lg-right">Email</label>
 
-                <div class="col-md-6">
-                  <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
+                <div class="col-lg-6">
+                  <input
+                      id="email"
+                      type="text"
+                      class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                      name="email"
+                      value="{{ old('email') }}"
+                  >
 
                   @if ($errors->has('email'))
-                    <span class="help-block">
+                    <span class="invalid-feedback">
                       <strong>{{ $errors->first('email') }}</strong>
                     </span>
                   @endif
                 </div>
               </div>
 
-              <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                <label for="phone" class="col-md-4 control-label">Phone</label>
+              <div class="form-group row">
+                <label for="phone" class="col-lg-4 col-form-label text-lg-right">Phone</label>
 
-                <div class="col-md-6">
-                  <input id="phone" type="text" class="form-control" name="phone" value="{{ old('phone') }}">
+                <div class="col-lg-6">
+                  <input
+                      id="phone"
+                      type="text"
+                      class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
+                      name="phone"
+                      value="{{ old('phone') }}"
+                  >
 
                   @if ($errors->has('phone'))
-                    <span class="help-block">
+                    <span class="invalid-feedback">
                       <strong>{{ $errors->first('phone') }}</strong>
                     </span>
                   @endif
                 </div>
               </div>
 
-              <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
-                <label for="address" class="col-md-4 control-label">Street Address</label>
+              <div class="form-group row">
+                <label for="address" class="col-lg-4 col-form-label text-lg-right">Street Address</label>
 
-                <div class="col-md-6">
-                  <input id="address" type="text" class="form-control" name="address" value="{{ old('address') }}">
+                <div class="col-lg-6">
+                  <input
+                      id="address"
+                      type="text"
+                      class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}"
+                      name="address"
+                      value="{{ old('address') }}"
+                  >
 
                   @if ($errors->has('address'))
-                    <span class="help-block">
+                    <span class="invalid-feedback">
                       <strong>{{ $errors->first('address') }}</strong>
                     </span>
                   @endif
                 </div>
               </div>
 
-              <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
-                <label for="city" class="col-md-4 control-label">City</label>
+              <div class="form-group row">
+                <label for="city" class="col-lg-4 col-form-label text-lg-right">City</label>
 
-                <div class="col-md-6">
-                  <input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}">
+                <div class="col-lg-6">
+                  <input
+                      id="city"
+                      type="text"
+                      class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}"
+                      name="city"
+                      value="{{ old('city') }}"
+                  >
 
                   @if ($errors->has('city'))
-                    <span class="help-block">
+                    <span class="invalid-feedback">
                       <strong>{{ $errors->first('city') }}</strong>
                     </span>
                   @endif
                 </div>
               </div>
 
-              <div class="form-group{{ $errors->has('state') ? ' has-error' : '' }}">
-                <label for="state" class="col-md-4 control-label">State</label>
+              <div class="form-group row">
+                <label for="state" class="col-lg-4 col-form-label text-lg-right">State</label>
 
-                <div class="col-md-6">
-                  <input id="state" type="text" class="form-control" name="state" value="{{ old('state') }}">
+                <div class="col-lg-6">
+                  <input
+                      id="state"
+                      type="text"
+                      class="form-control{{ $errors->has('state') ? ' is-invalid' : '' }}"
+                      name="state"
+                      value="{{ old('state') }}"
+                  >
 
                   @if ($errors->has('state'))
-                    <span class="help-block">
+                    <span class="invalid-feedback">
                       <strong>{{ $errors->first('state') }}</strong>
                     </span>
                   @endif
                 </div>
               </div>
 
-              <div class="form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">
-                <label for="zipcode" class="col-md-4 control-label">Zipcode</label>
+              <div class="form-group row">
+                <label for="zipcode" class="col-lg-4 col-form-label text-lg-right">Zipcode</label>
 
-                <div class="col-md-6">
-                  <input id="zipcode" type="text" class="form-control" name="zipcode" value="{{ old('zipcode') }}">
+                <div class="col-lg-6">
+                  <input
+                      id="zipcode"
+                      type="text"
+                      class="form-control{{ $errors->has('zipcode') ? ' is-invalid' : '' }}"
+                      name="zipcode"
+                      value="{{ old('zipcode') }}"
+                  >
 
                   @if ($errors->has('zipcode'))
-                    <span class="help-block">
+                    <span class="invalid-feedback">
                       <strong>{{ $errors->first('zipcode') }}</strong>
                     </span>
                   @endif
                 </div>
               </div>
 
-              <div class="form-group">
-                <div class="col-md-8 col-md-offset-4">
-                  <button type="submit" class="btn btn-sm btn-primary">
-                    Save
-                  </button>
-                </div>
-                <div class="col-md-8 col-md-offset-4">
-                  <a class="btn btn-default btn-sm pull-left" href="/contacts">
+              <div class="form-group row">
+                <div class="col-lg-6 offset-lg-4">
+                  <a class="btn btn-outline-info btn-sm float-left" href="/contacts">
                     Back
                   </a>
+                  <button type="submit" class="btn btn-sm btn-primary float-right">
+                    Save
+                  </button>
                 </div>
               </div>
 
