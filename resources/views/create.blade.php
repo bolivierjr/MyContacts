@@ -7,7 +7,7 @@
       <div class="col-md-8">
         <div class="card">
 
-          <div class="card-header">
+          <div class="card-header text-light bg-dark">
             <strong>Add Contact</strong>
           </div>
 

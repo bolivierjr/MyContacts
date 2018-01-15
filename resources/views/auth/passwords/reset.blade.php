@@ -5,7 +5,7 @@
     <div class="row justify-content-md-center mt-5">
       <div class="col-md-8">
         <div class="card">
-          <div class="card-header">Reset Password</div>
+          <div class="card-header text-light bg-dark">Reset Password</div>
           <div class="card-body">
             <form role="form" method="POST" action="{{ url('/password/reset') }}">
               {!! csrf_field() !!}

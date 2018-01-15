@@ -7,7 +7,7 @@
       <div class="col-md-8">
         <div class="card">
 
-          <div class="card-header">
+          <div class="card-header text-light bg-dark">
             <strong>Edit Contact</strong>
           </div>
 
@@ -175,6 +175,8 @@
                   @endif
                 </div>
               </div>
+
+              <input type="hidden" name="_method" value="PUT">
 
               <div class="form-group row">
                 <div class="col-lg-6 offset-lg-4">

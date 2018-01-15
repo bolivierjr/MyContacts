@@ -782,10 +782,6 @@ module.exports = __webpack_require__(38);
 
 __webpack_require__(10);
 
-$(document).ready(function () {
-  $('#contacts-table').DataTable();
-});
-
 /***/ }),
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {

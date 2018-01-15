@@ -17,46 +17,59 @@
           <!-- Show this if no contacts are found -->
           @if(!count($peoples))
             <div class="card-body"><p>Add some contacts!</p></div>
+
           @else
-
             <div class="card-body">
-              <table id="contacts-table" class="table table-bordered" cellspacing="0" width="100%">
-                <thead>
-                <tr>
-                  <th>First</th>
-                  <th>Last</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Address</th>
-                  <th></th>
-                  <th></th>
-
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($peoples as $people)
+              <div class="table-responsive">
+                <table data-pagination="true" data-search="true" data-toggle="table">
+                  <thead>
                   <tr>
-                    <td>{{$people->firstname}}</td>
-                    <td>{{$people->lastname}}</td>
-                    <td>{{$people->email}}</td>
-                    <td>{{$people->phone}}</td>
-                    <td>{{$people->address}}, {{$people->city}}
-                      , {{$people->state}} {{$people->zipcode}}</td>
-                    <td>
+                    <th></th>
+                    <th data-sortable="true">First</th>
+                    <th data-sortable="true">Last</th>
+                    <th data-sortable="true">City</th>
+                    <th data-sortable="true">State</th>
+                    <th data-sortable="true">Zipcode</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                  @foreach($peoples as $people)
+                    <tr>
+                      <td data-toggle="modal" data-target="#{{$people->id}}">
+                        <div class="text-center">
+                          <i class="icon ion-plus-round"></i>
+                        </div>
+                      </td>
+                      <td>{{$people->firstname}}</td>
+                      <td>{{$people->lastname}}</td>
+                      <td>{{$people->city}}</td>
+                      <td>{{$people->state}}</td>
+                      <td>{{$people->zipcode}}</td>
+
                       <!-- Button to edit the contact -->
-                      <a class="btn btn-info btn-sm" href="/contacts/{{ $people->id }}/edit">edit</a>
-                    </td>
-                    <td>
+                      <td class="text-center">
+                        <a class="btn btn-info btn-sm" href="/contacts/{{ $people->id }}/edit"><i class="icon ion-edit"></i></a>
+                      </td>
+
                       <!-- Button to delete contact from db -->
-                      <form method="POST" action="{{ route('contacts.destroy', ['id' => $people->id]) }}">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-sm">delete</button>
-                      </form>
-                    </td>
-                @endforeach
-                </tbody>
-              </table>
+                      <td class="text-center">
+                        <form method="POST" action="{{ route('contacts.destroy', ['id' => $people->id]) }}">
+                          {{ csrf_field() }}
+                          <input type="hidden" name="_method" value="DELETE">
+                          <button type="submit" class="btn btn-sm"><i class="icon ion-trash-a"></i></button>
+                        </form>
+                      </td>
+                    </tr>
+
+                    @include('modals.contact')
+                  @endforeach
+
+                  </tbody>
+                </table>
+              </div>
             </div>
           @endif
 
