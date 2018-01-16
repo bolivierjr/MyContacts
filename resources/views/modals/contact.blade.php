@@ -10,15 +10,17 @@
       </div>
 
       <!-- Modal body -->
+      @foreach($people->email as $email)
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-6">Email: {{$people->email}}</div>
+          <div class="col-md-6">Email: {{$email}}</div>
           <div class="col-md-6" data-toggle="collapse" data-target="#add-email">
             <a class="btn btn-sm btn-primary">
               <strong><i class="icon ion-plus-round"></i></strong>
             </a>
           </div>
         </div>
+        @endforeach
 
         {{--<div id="add-email" class="row collapse">--}}
           {{--<div class="col-md-12">--}}
@@ -47,9 +49,11 @@
           {{--</div>--}}
         {{--</div>--}}
 
+        @foreach($people->phone as $phone)
         <div class="row">
-          <div class="col-md-6">Phone: {{$people->phone}}</div>
+          <div class="col-md-6">Phone: {{$phone}}</div>
         </div>
+        @endforeach
 
         <div class="row">
           <div class="col-md-6">Address: {{$people->address}}</div>

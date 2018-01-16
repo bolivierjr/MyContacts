@@ -56,45 +56,97 @@
                 </div>
               </div>
 
-              <div class="form-group row">
-                <label for="email" class="col-lg-4 col-form-label text-lg-right">Email</label>
+              @if(empty($contact->email))
+                <div class="form-group row">
+                  <label for="phone" class="col-lg-4 col-form-label text-lg-right">Email</label>
 
-                <div class="col-lg-6">
-                  <input
-                      id="email"
-                      type="text"
-                      class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                      name="email"
-                      value="{{ old('email') ? old('email') : $contact->email }}"
-                  >
+                  <div class="col-lg-6">
+                    <input
+                        id="phone"
+                        type="text"
+                        class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                        name="phone"
+                        value=""
+                    >
 
-                  @if ($errors->has('email'))
-                    <span class="invalid-feedback">
-                      <strong>{{ $errors->first('email') }}</strong>
-                    </span>
-                  @endif
+                    @if ($errors->has('email'))
+                      <span class="invalid-feedback">
+                        <strong>{{ $errors->first('email') }}</strong>
+                      </span>
+                    @endif
+                  </div>
                 </div>
-              </div>
+              @endif
 
-              <div class="form-group row">
-                <label for="phone" class="col-lg-4 col-form-label text-lg-right">Phone</label>
+              @foreach($contact->email as $email)
+                <div class="form-group row">
+                  <label for="email" class="col-lg-4 col-form-label text-lg-right">Email</label>
 
-                <div class="col-lg-6">
-                  <input
-                      id="phone"
-                      type="text"
-                      class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
-                      name="phone"
-                      value="{{ old('phone') ? old('phone') : $contact->phone }}"
-                  >
+                  <div class="col-lg-6">
+                    <input
+                        id="email"
+                        type="text"
+                        class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                        name="email"
+                        value="{{ old('email') ? old('email') : $email }}"
+                    >
 
-                  @if ($errors->has('phone'))
-                    <span class="invalid-feedback">
-                      <strong>{{ $errors->first('phone') }}</strong>
-                    </span>
-                  @endif
+                    <input type="hidden" name="email_variable" value="{{ $email }}">
+
+                    @if ($errors->has('email'))
+                      <span class="invalid-feedback">
+                        <strong>{{ $errors->first('email') }}</strong>
+                      </span>
+                    @endif
+                  </div>
                 </div>
-              </div>
+              @endforeach
+
+              @if(empty($contact->phone))
+                <div class="form-group row">
+                  <label for="phone" class="col-lg-4 col-form-label text-lg-right">Phone</label>
+
+                  <div class="col-lg-6">
+                    <input
+                        id="phone"
+                        type="text"
+                        class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
+                        name="phone"
+                        value=""
+                    >
+
+                    @if ($errors->has('phone'))
+                      <span class="invalid-feedback">
+                        <strong>{{ $errors->first('phone') }}</strong>
+                      </span>
+                    @endif
+                  </div>
+                </div>
+              @endif
+
+              @foreach($contact->phone as $phone)
+                <div class="form-group row">
+                  <label for="phone" class="col-lg-4 col-form-label text-lg-right">Phone</label>
+
+                  <div class="col-lg-6">
+                    <input
+                        id="phone"
+                        type="text"
+                        class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
+                        name="phone"
+                        value="{{ old('phone') ? old('phone') : $phone }}"
+                    >
+
+                    <input type="hidden" name="phone_variable" value="{{ $phone }}">
+
+                    @if ($errors->has('phone'))
+                      <span class="invalid-feedback">
+                        <strong>{{ $errors->first('phone') }}</strong>
+                      </span>
+                    @endif
+                  </div>
+                </div>
+              @endforeach
 
               <div class="form-group row">
                 <label for="address" class="col-lg-4 col-form-label text-lg-right">Street Address</label>
