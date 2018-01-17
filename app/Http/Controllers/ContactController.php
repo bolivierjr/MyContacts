@@ -182,57 +182,38 @@ class ContactController extends Controller
         $contact->state = $request->input('state');
         $contact->zipcode = $request->input('zipcode');
 
-        $email_request = $request->input('email');
-        $email_variable = $request->email_variable;
-        $phone_request = $request->input('phone');
-        $phone_variable = $request->phone_variable;
+        $fields = ['email', 'phone'];
+        foreach ($fields as $field) {
 
-        /**
-         *  Fix this mess tomorrow!
-         */
-        if (!empty($email_request) && strcmp($email_request, $email_variable)) {
-            $email_count = count($contact->email) + 1;
-            $add_email = $contact->email;
-            $add_email['email_' . $email_count] = $email_request;
-            $contact->email = $add_email;
+            $input_request = $request->input($field);
+            $hidden_variable = strcmp($field, $fields[0]) ? $request->phone_variable : $request->email_variable;
 
-            // Delete old input value
-            $search = array_search($email_variable, $contact->email);
-            $email = $contact->email;
-            unset($email[$search]);
-            $contact->email = $email;
-        } elseif (!strcmp($email_request, $email_variable)) {
-            // do nothing
-        } else {
-            $email = $contact->email;
-            $search = array_search($email_variable, $contact->email);
-            unset($email[$search]);
-            $contact->email = $email;
+            /*
+             * Compares old and new input values if changed in edit form.
+             * First, if changed to a new value and not empty, do this.
+             */
+            if (!empty($input_request) && strcmp($input_request, $hidden_variable)) {
+                $array_count = count($contact->$field) + 1;
+                $add_element = $contact->$field;
+                $add_element[$field . '_' . $array_count] = $input_request;
+                $contact->$field = $add_element;
+
+
+                // Delete old element of array from database
+                $search = array_search($hidden_variable, $contact->$field);
+                $newfield = $contact->$field;
+                unset($newfield[$search]);
+                $contact->$field = $newfield;
+            } elseif (!strcmp($input_request, $hidden_variable)) {
+                // do nothing if the same values
+            } else {
+                // If field is blank, delete the element from database
+                $newfield = $contact->$field;
+                $search = array_search($hidden_variable, $contact->$field);
+                unset($newfield[$search]);
+                $contact->$field = $newfield;
+            }
         }
-
-        /**
-         *
-         */
-        if (!empty($phone_request) && strcmp($phone_request, $phone_variable) ) {
-            $phone_count = count($contact->phone) + 1;
-            $add_phone = $contact->phone;
-            $add_phone['phone_' . $phone_count] = $phone_request;
-            $contact->phone = $add_phone;
-
-            // Delete old input value
-            $search = array_search($phone_variable, $contact->phone);
-            $phone = $contact->phone;
-            unset($phone[$search]);
-            $contact->phone = $phone;
-        } elseif (!strcmp($phone_request, $phone_variable)) {
-            // do nothing
-        } else {
-            $phone = $contact->phone;
-            $search = array_search($phone_variable, $contact->phone);
-            unset($phone[$search]);
-            $contact->phone = $phone;
-        }
-
 
         $contact->save();
 

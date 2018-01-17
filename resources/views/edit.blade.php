@@ -65,7 +65,7 @@
                         id="phone"
                         type="text"
                         class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                        name="phone"
+                        name="email"
                         value=""
                     >
 
