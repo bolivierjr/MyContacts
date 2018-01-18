@@ -103,6 +103,10 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        // Custom rule(s) for email validation on the add email modal.
+        'newemail' => [
+            'email' => 'The email must be a valid email address.'
+        ],
     ],
 
     /*

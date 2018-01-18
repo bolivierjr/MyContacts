@@ -4,8 +4,8 @@
   <!-- Edit form component -->
   <div class="container">
     <div class="row justify-content-md-center mt-5">
-      <div class="col-md-8">
-        <div class="card">
+      <div class="col-md-7">
+        <div id="rip" class="card">
 
           <div class="card-header text-light bg-dark">
             <strong>Edit Contact</strong>
@@ -16,7 +16,7 @@
               {{ csrf_field() }}
 
               <div class="form-group row">
-                <label for="firstname" class="col-lg-4 col-form-label text-lg-right">First Name</label>
+                <label for="firstname" class="col-lg-3 col-form-label text-lg-right">First Name</label>
 
                 <div class="col-lg-6">
                   <input
@@ -37,7 +37,7 @@
               </div>
 
               <div class="form-group row">
-                <label for="lastname" class="col-lg-4 col-form-label text-lg-right">Last Name</label>
+                <label for="lastname" class="col-lg-3 col-form-label text-lg-right">Last Name</label>
 
                 <div class="col-lg-6">
                   <input
@@ -58,11 +58,11 @@
 
               @if(empty($contact->email))
                 <div class="form-group row">
-                  <label for="phone" class="col-lg-4 col-form-label text-lg-right">Email</label>
+                  <label for="email" class="col-lg-3 col-form-label text-lg-right">Email</label>
 
                   <div class="col-lg-6">
                     <input
-                        id="phone"
+                        id="email"
                         type="text"
                         class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
                         name="email"
@@ -79,8 +79,11 @@
               @endif
 
               @foreach($contact->email as $email)
+                {{--@if($loop->index == 5)--}}
+                {{--@break--}}
+                {{--@endif--}}
                 <div class="form-group row">
-                  <label for="email" class="col-lg-4 col-form-label text-lg-right">Email</label>
+                  <label for="email" class="col-lg-3 col-form-label text-lg-right">Email</label>
 
                   <div class="col-lg-6">
                     <input
@@ -90,7 +93,6 @@
                         name="email"
                         value="{{ old('email') ? old('email') : $email }}"
                     >
-
                     <input type="hidden" name="email_variable" value="{{ $email }}">
 
                     @if ($errors->has('email'))
@@ -99,12 +101,25 @@
                       </span>
                     @endif
                   </div>
+
+                  <div class="col-lg-1">
+                    <span>
+                        <button
+                            id="addEmail"
+                            class="btn btn-primary float-right"
+                            type="button" data-toggle="modal"
+                            data-target="#addModal"
+                        >
+                          <i class="icon ion-plus-round"></i>
+                        </button>
+                      </span>
+                  </div>
                 </div>
               @endforeach
 
               @if(empty($contact->phone))
                 <div class="form-group row">
-                  <label for="phone" class="col-lg-4 col-form-label text-lg-right">Phone</label>
+                  <label for="phone" class="col-lg-3 col-form-label text-lg-right">Phone</label>
 
                   <div class="col-lg-6">
                     <input
@@ -126,7 +141,7 @@
 
               @foreach($contact->phone as $phone)
                 <div class="form-group row">
-                  <label for="phone" class="col-lg-4 col-form-label text-lg-right">Phone</label>
+                  <label for="phone" class="col-lg-3 col-form-label text-lg-right">Phone</label>
 
                   <div class="col-lg-6">
                     <input
@@ -145,11 +160,17 @@
                       </span>
                     @endif
                   </div>
+
+                  <div class="col-lg-1">
+                    <button id="addEmail" class="btn btn-primary float-right" type="button">
+                      <i class="icon ion-plus-round"></i>
+                    </button>
+                  </div>
                 </div>
               @endforeach
 
               <div class="form-group row">
-                <label for="address" class="col-lg-4 col-form-label text-lg-right">Street Address</label>
+                <label for="address" class="col-lg-3 col-form-label text-lg-right">Street Address</label>
 
                 <div class="col-lg-6">
                   <input
@@ -169,7 +190,7 @@
               </div>
 
               <div class="form-group row">
-                <label for="city" class="col-lg-4 col-form-label text-lg-right">City</label>
+                <label for="city" class="col-lg-3 col-form-label text-lg-right">City</label>
 
                 <div class="col-lg-6">
                   <input
@@ -189,7 +210,7 @@
               </div>
 
               <div class="form-group row">
-                <label for="state" class="col-lg-4 col-form-label text-lg-right">State</label>
+                <label for="state" class="col-lg-3 col-form-label text-lg-right">State</label>
 
                 <div class="col-lg-6">
                   <input
@@ -209,7 +230,7 @@
               </div>
 
               <div class="form-group row">
-                <label for="zipcode" class="col-lg-4 col-form-label text-lg-right">Zipcode</label>
+                <label for="zipcode" class="col-lg-3 col-form-label text-lg-right">Zipcode</label>
 
                 <div class="col-lg-6">
                   <input
@@ -231,11 +252,11 @@
               <input type="hidden" name="_method" value="PUT">
 
               <div class="form-group row">
-                <div class="col-lg-6 offset-lg-4">
-                  <a class="btn btn-outline-info btn-sm float-left" href="/contacts">
+                <div class="col-lg-6 offset-lg-3">
+                  <a class="btn btn-outline-info float-left" href="/contacts">
                     Back
                   </a>
-                  <button type="submit" class="btn btn-sm btn-primary float-right">
+                  <button type="submit" class="btn btn-primary float-right">
                     Save
                   </button>
                 </div>
@@ -248,4 +269,6 @@
       </div>
     </div>
   </div>
+  @include('modals.addmodal')
+
 @endsection

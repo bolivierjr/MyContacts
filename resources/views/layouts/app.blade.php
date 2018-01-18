@@ -63,5 +63,41 @@
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/bootstrap-table.min.js') }}"></script>
+{{--<script type="text/javascript">--}}
+  {{--$('document').ready(function() {--}}
+
+    {{--// $('#addModal').modal('hide');--}}
+    {{--//--}}
+    {{--// $('button').click()--}}
+
+    {{--// $('body').on('click', '#submitForm', function(){--}}
+    {{--//--}}
+      {{--// var registerForm = $("#addForm");--}}
+      {{--// var formData = registerForm.serialize();--}}
+      {{--// $( '#email-error' ).html( "" );--}}
+      {{--//--}}
+      {{--// $('#addModal').modal('show');--}}
+      {{--$.ajax({--}}
+        {{--url:"{{ route('contacts.email', ['id' => $contact->id]) }}",--}}
+        {{--type:'POST',--}}
+        {{--data: formData,--}}
+        {{--success:function(data) {--}}
+
+          {{--if(data.errors) {--}}
+            {{--if(data.errors.email){--}}
+              {{--$( '#email-error' ).html( data.errors.email[0] );--}}
+            {{--}--}}
+
+          {{--}--}}
+          {{--if(data.success) {--}}
+            {{--setInterval(function(){--}}
+              {{--$('#addModal').modal({show: true});--}}
+            {{--}, 3000);--}}
+          {{--}--}}
+        {{--},--}}
+      {{--});--}}
+  {{--});--}}
+{{--</script>--}}
 </body>
 </html>
+

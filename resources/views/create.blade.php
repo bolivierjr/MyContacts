@@ -4,7 +4,7 @@
   <!-- Create form component -->
   <div class="container">
     <div class="row justify-content-md-center mt-5">
-      <div class="col-md-8">
+      <div class="col-md-7">
         <div class="card">
 
           <div class="card-header text-light bg-dark">
@@ -16,7 +16,7 @@
               {{ csrf_field() }}
 
               <div class="form-group row">
-                <label for="firstname" class="col-lg-4 col-form-label text-lg-right">First Name</label>
+                <label for="firstname" class="col-lg-3 col-form-label text-lg-right">First Name</label>
 
                 <div class="col-lg-6">
                   <input
@@ -37,7 +37,7 @@
               </div>
 
               <div class="form-group row">
-                <label for="lastname" class="col-lg-4 col-form-label text-lg-right">Last Name</label>
+                <label for="lastname" class="col-lg-3 col-form-label text-lg-right">Last Name</label>
 
                 <div class="col-lg-6">
                   <input
@@ -57,7 +57,7 @@
               </div>
 
               <div class="form-group row">
-                <label for="email" class="col-lg-4 col-form-label text-lg-right">Email</label>
+                <label for="email" class="col-lg-3 col-form-label text-lg-right">Email</label>
 
                 <div class="col-lg-6">
                   <input
@@ -77,7 +77,7 @@
               </div>
 
               <div class="form-group row">
-                <label for="phone" class="col-lg-4 col-form-label text-lg-right">Phone</label>
+                <label for="phone" class="col-lg-3 col-form-label text-lg-right">Phone</label>
 
                 <div class="col-lg-6">
                   <input
@@ -97,7 +97,7 @@
               </div>
 
               <div class="form-group row">
-                <label for="address" class="col-lg-4 col-form-label text-lg-right">Street Address</label>
+                <label for="address" class="col-lg-3 col-form-label text-lg-right">Street Address</label>
 
                 <div class="col-lg-6">
                   <input
@@ -117,7 +117,7 @@
               </div>
 
               <div class="form-group row">
-                <label for="city" class="col-lg-4 col-form-label text-lg-right">City</label>
+                <label for="city" class="col-lg-3 col-form-label text-lg-right">City</label>
 
                 <div class="col-lg-6">
                   <input
@@ -137,7 +137,7 @@
               </div>
 
               <div class="form-group row">
-                <label for="state" class="col-lg-4 col-form-label text-lg-right">State</label>
+                <label for="state" class="col-lg-3 col-form-label text-lg-right">State</label>
 
                 <div class="col-lg-6">
                   <input
@@ -157,7 +157,7 @@
               </div>
 
               <div class="form-group row">
-                <label for="zipcode" class="col-lg-4 col-form-label text-lg-right">Zipcode</label>
+                <label for="zipcode" class="col-lg-3 col-form-label text-lg-right">Zipcode</label>
 
                 <div class="col-lg-6">
                   <input
@@ -177,7 +177,7 @@
               </div>
 
               <div class="form-group row">
-                <div class="col-lg-6 offset-lg-4">
+                <div class="col-lg-6 offset-lg-3">
                   <a class="btn btn-outline-info btn-sm float-left" href="/contacts">
                     Back
                   </a>
