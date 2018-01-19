@@ -102,8 +102,9 @@
                     @endif
                   </div>
 
-                  <div class="col-lg-1">
-                    <span>
+                  @if($loop->index < 1)
+                    <div class="col-lg-1">
+                      <span>
                         <button
                             id="addEmail"
                             class="btn btn-primary float-right"
@@ -112,8 +113,9 @@
                         >
                           <i class="icon ion-plus-round"></i>
                         </button>
-                      </span>
-                  </div>
+                        </span>
+                    </div>
+                  @endif
                 </div>
               @endforeach
 
@@ -161,8 +163,9 @@
                     @endif
                   </div>
 
-                  <div class="col-lg-1">
-                    <span>
+                  @if($loop->index < 1)
+                    <div class="col-lg-1">
+                      <span>
                         <button
                             id="addPhone"
                             class="btn btn-primary float-right"
@@ -172,7 +175,8 @@
                           <i class="icon ion-plus-round"></i>
                         </button>
                       </span>
-                  </div>
+                    </div>
+                  @endif
                 </div>
               @endforeach
 
