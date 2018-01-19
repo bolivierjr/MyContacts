@@ -108,7 +108,7 @@
                             id="addEmail"
                             class="btn btn-primary float-right"
                             type="button" data-toggle="modal"
-                            data-target="#addModal"
+                            data-target="#addEmailModal"
                         >
                           <i class="icon ion-plus-round"></i>
                         </button>
@@ -162,9 +162,16 @@
                   </div>
 
                   <div class="col-lg-1">
-                    <button id="addEmail" class="btn btn-primary float-right" type="button">
-                      <i class="icon ion-plus-round"></i>
-                    </button>
+                    <span>
+                        <button
+                            id="addPhone"
+                            class="btn btn-primary float-right"
+                            type="button" data-toggle="modal"
+                            data-target="#addPhoneModal"
+                        >
+                          <i class="icon ion-plus-round"></i>
+                        </button>
+                      </span>
                   </div>
                 </div>
               @endforeach

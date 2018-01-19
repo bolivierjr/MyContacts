@@ -11042,7 +11042,7 @@ module.exports = __webpack_require__(37);
 
 __webpack_require__(11);
 
-$(document).ready(function () {
+$(function () {
   // Fade the card bodies in on page load
   $('.card-body').fadeIn('fast');
 
@@ -11050,35 +11050,44 @@ $(document).ready(function () {
   $('.modal').on('shown.bs.modal', function () {
     $(this).find('[autofocus]').focus();
   });
+
+  $('#addEmailForm').submit(function (evt) {
+    addForms(evt, 'email', 'Email');
+  });
+
+  $('#addPhoneForm').submit(function (evt) {
+    addForms(evt, 'phone', 'Phone');
+  });
 });
 
-$(document).submit(function (e) {
-  var form = $(e.target);
+addForms = function addForms(evt, x, y) {
+  evt.preventDefault();
+  var form = $(evt.target);
 
-  if (form.is("#addForm")) {
-    // check if this is the form that you want
-    e.preventDefault();
-    $.ajax({
-      type: "POST",
-      url: form.attr("action"),
-      dataType: 'json',
-      data: form.serialize(), // serializes the form's elements.
-      success: function success(res) {
-        console.log(res.responseJSON);
-      },
-      error: function error(res) {
-        console.log(res);
-        $('#email-error').html(res.responseJSON.errors.newemail[0]);
-        $('#newemail').addClass('is-invalid');
-      }
-    });
-  }
-});
+  $.ajax({
+    type: "POST",
+    url: form.attr("action"),
+    dataType: 'json',
+    data: form.serialize() // serializes the form's elements.
 
-// if(data.success) {
-//   setInterval(function(){
-//     $('#addModal').modal({show: true});
-//   }, 3000);
+  }).done(function () {
+    //
+  }).fail(function (err) {
+    if (err.responseJSON) {
+      console.log(err.responseJSON);
+      var errMessage = err.responseJSON.errors.newemail[0];
+
+      // Throw error message for form validation
+      $('#' + x + '-error').html(errMessage);
+      $('#new' + x).addClass('is-invalid');
+      // Autofocus back on input after error is thrown
+      $('.modal').find('[autofocus]').focus();
+    } else {
+      // Submit if no error
+      $('#add' + y + 'Form').unbind().submit();
+    }
+  });
+};
 
 /***/ }),
 /* 11 */
