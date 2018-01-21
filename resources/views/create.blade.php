@@ -12,7 +12,7 @@
           </div>
 
           <div class="card-body">
-            <form class="form-horizontal" method="POST" action="{{ route('contacts.store') }}">
+            <form id="createForm" class="form-horizontal" method="POST" action="{{ route('contacts.store') }}">
               {{ csrf_field() }}
 
               <div class="form-group row">
@@ -178,10 +178,10 @@
 
               <div class="form-group row">
                 <div class="col-lg-6 offset-lg-3">
-                  <a class="btn btn-outline-info btn-sm float-left" href="/contacts">
+                  <a class="btn btn-info float-left" href="/contacts">
                     Back
                   </a>
-                  <button type="submit" class="btn btn-sm btn-primary float-right">
+                  <button id="submitCreate" type="submit" class="btn btn-primary float-right">
                     Save
                   </button>
                 </div>

@@ -9,6 +9,13 @@ $(function () {
     $(this).find('[autofocus]').focus();
   });
 
+  $('#createForm').submit(() => {
+    disableSubmitButtons();
+  });
+
+  $('#editForm').submit(() => {
+    disableSubmitButtons();
+  });
 
   $('#addEmailForm').submit(evt => {
     addForms(evt, 'email', 'Email');
@@ -19,10 +26,20 @@ $(function () {
   });
 });
 
+disableSubmitButtons = () => {
+  $('#submitEmail,#submitPhone,#submitEdit,#submitCreate').prop('disabled', 'disabled');
+}
+
+enableSubmitButtons = () => {
+  $('#submitEmail,#submitPhone').prop('disabled', false);
+}
+
 addForms = (evt, x, y) => {
   evt.preventDefault();
   const form = $(evt.target);
 
+  // Disable submit button after first click
+  disableSubmitButtons();
 
   $.ajax({
     type: "POST",
@@ -42,11 +59,11 @@ addForms = (evt, x, y) => {
       // Autofocus back on input after error is thrown
       $('.modal').find('[autofocus]').focus();
 
+      // enable button again
+      enableSubmitButtons();
     } else {
       $('.modal').modal('hide');
       location.reload();
     }
   });
 }
-
-

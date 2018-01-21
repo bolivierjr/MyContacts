@@ -35,7 +35,7 @@
 
         <!-- Email Modal footer -->
         <div class="modal-footer">
-          <button id="submitEmailForm" type="submit" class="btn btn-primary float-right" enabled>
+          <button id="submitEmail" type="submit" class="btn btn-primary float-right">
             Save
           </button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -82,7 +82,7 @@
 
         <!-- Phone Modal footer -->
         <div class="modal-footer">
-          <button id="submitPhoneForm" type="submit" class="btn btn-primary float-right" enabled>
+          <button id="submitPhone" type="submit" class="btn btn-primary float-right">
             Save
           </button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

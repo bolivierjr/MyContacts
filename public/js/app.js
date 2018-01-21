@@ -11053,6 +11053,14 @@ $(function () {
     $(_this).find('[autofocus]').focus();
   });
 
+  $('#createForm').submit(function () {
+    disableSubmitButtons();
+  });
+
+  $('#editForm').submit(function () {
+    disableSubmitButtons();
+  });
+
   $('#addEmailForm').submit(function (evt) {
     addForms(evt, 'email', 'Email');
   });
@@ -11062,9 +11070,20 @@ $(function () {
   });
 });
 
+disableSubmitButtons = function disableSubmitButtons() {
+  $('#submitEmail,#submitPhone,#submitEdit,#submitCreate').prop('disabled', 'disabled');
+};
+
+enableSubmitButtons = function enableSubmitButtons() {
+  $('#submitEmail,#submitPhone').prop('disabled', false);
+};
+
 addForms = function addForms(evt, x, y) {
   evt.preventDefault();
   var form = $(evt.target);
+
+  // Disable submit button after first click
+  disableSubmitButtons();
 
   $.ajax({
     type: "POST",
@@ -11083,6 +11102,9 @@ addForms = function addForms(evt, x, y) {
       $('#new' + x).addClass('is-invalid');
       // Autofocus back on input after error is thrown
       $('.modal').find('[autofocus]').focus();
+
+      // enable button again
+      enableSubmitButtons();
     } else {
       $('.modal').modal('hide');
       location.reload();

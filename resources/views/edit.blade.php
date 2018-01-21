@@ -12,7 +12,7 @@
           </div>
 
           <div class="card-body">
-            <form class="form-horizontal" method="POST" action="{{ route('contacts.update', ['id' => $contact->id]) }}">
+            <form id="editForm" class="form-horizontal" method="POST" action="{{ route('contacts.update', ['id' => $contact->id]) }}">
               {{ csrf_field() }}
 
               <div class="form-group row">
@@ -288,10 +288,10 @@
 
               <div class="form-group row">
                 <div class="col-lg-6 offset-lg-3">
-                  <a class="btn btn-outline-info float-left" href="/contacts">
+                  <a class="btn btn-info float-left" href="/contacts">
                     Back
                   </a>
-                  <button type="submit" class="btn btn-primary float-right">
+                  <button id="submitEdit" type="submit" class="btn btn-primary float-right">
                     Save
                   </button>
                 </div>
