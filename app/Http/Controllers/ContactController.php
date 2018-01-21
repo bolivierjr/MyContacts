@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Validator;
 use App\User;
 use App\People;
@@ -43,8 +44,8 @@ class ContactController extends Controller
             Validator::make($request->all(), [
                 'firstname' => 'required|string|max:64',
                 'lastname' => 'required|string|max:64',
-                'email' => 'sometimes|nullable|email|max:64',
-                'phone' => 'sometimes|nullable|max:20',
+                'email1' => 'sometimes|nullable|email|max:64',
+                'phone1' => 'sometimes|nullable|max:20',
                 'address' => 'required|string|max:64',
                 'city' => 'required|string|max:32',
                 'state' => 'required|string|size:2|regex:/([a-zA-Z])$/',
@@ -54,8 +55,8 @@ class ContactController extends Controller
             Validator::make($request->all(), [
                 'firstname' => 'required|string|max:64',
                 'lastname' => 'required|string|max:64',
-                'email' => 'sometimes|nullable|email|max:64',
-                'phone' => 'sometimes|nullable|max:20',
+                'email1' => 'sometimes|nullable|email|max:64',
+                'phone1' => 'sometimes|nullable|max:20',
             ])->validate();
         }
     }
@@ -119,7 +120,7 @@ class ContactController extends Controller
                 $contacts->$multiple = [];
             } else {
                 $contacts->$multiple = [
-                    $multiple . '_1' => $request->input($multiple),
+                    $request->input($multiple),
                 ];
             }
         }
@@ -182,36 +183,30 @@ class ContactController extends Controller
         $contact->state = $request->input('state');
         $contact->zipcode = $request->input('zipcode');
 
-        $fields = ['email', 'phone'];
+        $fields = ['email1', 'email2', 'email3', 'phone1', 'phone2', 'phone3'];
         foreach ($fields as $field) {
+            $db_field = substr($field, 0, -1);
 
             $input_request = $request->input($field);
-            $hidden_variable = strcmp($field, $fields[0]) ? $request->phone_variable : $request->email_variable;
+            Log::info(print_r($input_request, true));
+            $hidden_input = $field . '_variable';
+            $hidden_variable = $request->$hidden_input;
 
             /*
              * Compares old and new input values if changed in edit form.
-             * First, if changed to a new value and not empty, do this.
+             * If changed to a new value, replace.
              */
-            if (!empty($input_request) && strcmp($input_request, $hidden_variable)) {
-                $array_count = count($contact->$field) + 1;
-                $add_element = $contact->$field;
-                $add_element[$field . '_' . $array_count] = $input_request;
-                $contact->$field = $add_element;
-
-
-                // Delete old element of array from database
-                $search = array_search($hidden_variable, $contact->$field);
-                $newfield = $contact->$field;
-                unset($newfield[$search]);
-                $contact->$field = $newfield;
-            } elseif (!strcmp($input_request, $hidden_variable)) {
-                // do nothing if the same values
+//            return $input_request . ' '. $hidden_variable;
+            if (strcmp($input_request, $hidden_variable)) {
+//                return $hidden_variable .' '. $hidden_input .' '. $input_request;
+                $search = array_search($hidden_variable, $contact->$db_field);
+                $newfield = $contact->$db_field;
+                array_splice($newfield, $search, 1, $input_request);
+                $contact->$db_field = $newfield;
+//                return $contact->$db_field;
+            } elseif (empty($input_request)) {
+                // do nothing
             } else {
-                // If field is blank, delete the element from database
-                $newfield = $contact->$field;
-                $search = array_search($hidden_variable, $contact->$field);
-                unset($newfield[$search]);
-                $contact->$field = $newfield;
             }
         }
 

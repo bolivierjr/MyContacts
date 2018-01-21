@@ -22,4 +22,4 @@ Auth::routes();
 Route::resource('contacts', 'ContactController');
 
 Route::post('contacts/new-email/{id}', ['uses' => 'AddFormController@addEmail'])->name('contacts.email');
-Route::post('contacts/new-phone/{id}', 'AddFormController@addPhone')->name('contacts.phone');
+Route::post('contacts/new-phone/{id}', ['uses' => 'AddFormController@addPhone'])->name('contacts.phone');

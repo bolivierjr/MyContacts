@@ -33,7 +33,7 @@
         <div class="col-md-6 offset-md-1">
           @forelse($people->phone as $phone)
             @if($loop->index < 1)
-              <strong>Phone</strong> {{$phone}}</div></div>
+              <strong>Phone:</strong> {{$phone}}</div></div>
 
             @elseif($loop->index >= 1)
               <div class="row">

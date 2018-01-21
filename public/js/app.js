@@ -11043,12 +11043,14 @@ module.exports = __webpack_require__(37);
 __webpack_require__(11);
 
 $(function () {
+  var _this = this;
+
   // Fade the card bodies in on page load
   $('.card-body').fadeIn('fast');
 
   // Find autofocus element in the input of modal and focus input
   $('.modal').on('shown.bs.modal', function () {
-    $(this).find('[autofocus]').focus();
+    $(_this).find('[autofocus]').focus();
   });
 
   $('#addEmailForm').submit(function (evt) {
@@ -11074,7 +11076,6 @@ addForms = function addForms(evt, x, y) {
     //
   }).fail(function (err) {
     if (err.responseJSON) {
-      console.log(err.responseJSON);
       var errMessage = err.responseJSON.errors.newemail[0];
 
       // Throw error message for form validation
@@ -11083,8 +11084,8 @@ addForms = function addForms(evt, x, y) {
       // Autofocus back on input after error is thrown
       $('.modal').find('[autofocus]').focus();
     } else {
-      // Submit if no error
-      $('#add' + y + 'Form').unbind().submit();
+      $('.modal').modal('hide');
+      location.reload();
     }
   });
 };

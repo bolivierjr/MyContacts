@@ -58,20 +58,20 @@
 
               @if(empty($contact->email))
                 <div class="form-group row">
-                  <label for="email" class="col-lg-3 col-form-label text-lg-right">Email</label>
+                  <label for="email1" class="col-lg-3 col-form-label text-lg-right">Email</label>
 
                   <div class="col-lg-6">
                     <input
-                        id="email"
+                        id="email1"
                         type="text"
-                        class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                        name="email"
+                        class="form-control{{ $errors->has('email1') ? ' is-invalid' : '' }}"
+                        name="email1"
                         value=""
                     >
 
-                    @if ($errors->has('email'))
+                    @if ($errors->has('email1'))
                       <span class="invalid-feedback">
-                        <strong>{{ $errors->first('email') }}</strong>
+                        <strong>{{ $errors->first('email1') }}</strong>
                       </span>
                     @endif
                   </div>
@@ -79,25 +79,30 @@
               @endif
 
               @foreach($contact->email as $email)
+                @php
+                  $number = $loop->iteration
+                @endphp
                 {{--@if($loop->index == 5)--}}
                 {{--@break--}}
                 {{--@endif--}}
                 <div class="form-group row">
-                  <label for="email" class="col-lg-3 col-form-label text-lg-right">Email</label>
+                  <label for="email{{ $number }}" class="col-lg-3 col-form-label text-lg-right">
+                    Email{{ $loop->iteration > 1 ? ' ' . $number : '' }}
+                  </label>
 
                   <div class="col-lg-6">
                     <input
-                        id="email"
+                        id="email{{ $number }}"
                         type="text"
-                        class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                        name="email"
-                        value="{{ old('email') ? old('email') : $email }}"
+                        class="form-control{{ $errors->has('email' . $number) ? ' is-invalid' : '' }}"
+                        name="email{{ $number }}"
+                        value="{{ old('email' . $number) ? old('email' . $number) : $email }}"
                     >
-                    <input type="hidden" name="email_variable" value="{{ $email }}">
+                    <input type="hidden" name="email{{ $number }}_variable" value="{{ $email }}">
 
-                    @if ($errors->has('email'))
+                    @if ($errors->has('email' . $number))
                       <span class="invalid-feedback">
-                        <strong>{{ $errors->first('email') }}</strong>
+                        <strong>{{ $errors->first('email' . $number) }}</strong>
                       </span>
                     @endif
                   </div>
@@ -121,20 +126,20 @@
 
               @if(empty($contact->phone))
                 <div class="form-group row">
-                  <label for="phone" class="col-lg-3 col-form-label text-lg-right">Phone</label>
+                  <label for="phone1" class="col-lg-3 col-form-label text-lg-right">Phone</label>
 
                   <div class="col-lg-6">
                     <input
-                        id="phone"
+                        id="phone1"
                         type="text"
-                        class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
-                        name="phone"
+                        class="form-control{{ $errors->has('phone1') ? ' is-invalid' : '' }}"
+                        name="phone1"
                         value=""
                     >
 
-                    @if ($errors->has('phone'))
+                    @if ($errors->has('phone1'))
                       <span class="invalid-feedback">
-                        <strong>{{ $errors->first('phone') }}</strong>
+                        <strong>{{ $errors->first('phone1') }}</strong>
                       </span>
                     @endif
                   </div>
@@ -142,23 +147,29 @@
               @endif
 
               @foreach($contact->phone as $phone)
+                @php
+                  $number = $loop->iteration
+                @endphp
+
                 <div class="form-group row">
-                  <label for="phone" class="col-lg-3 col-form-label text-lg-right">Phone</label>
+                  <label for="phone{{ $number }}" class="col-lg-3 col-form-label text-lg-right">
+                    Phone{{ $loop->iteration > 1 ? ' ' . $number : '' }}
+                  </label>
 
                   <div class="col-lg-6">
                     <input
-                        id="phone"
+                        id="phone{{ $number }}"
                         type="text"
-                        class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
-                        name="phone"
-                        value="{{ old('phone') ? old('phone') : $phone }}"
+                        class="form-control{{ $errors->has('phone' . $number) ? ' is-invalid' : '' }}"
+                        name="phone{{ $number }}"
+                        value="{{ old('phone' . $number) ? old('phone' . $number) : $phone }}"
                     >
 
-                    <input type="hidden" name="phone_variable" value="{{ $phone }}">
+                    <input type="hidden" name="phone{{ $number }}_variable" value="{{ $phone }}">
 
-                    @if ($errors->has('phone'))
+                    @if ($errors->has('phone' . $number))
                       <span class="invalid-feedback">
-                        <strong>{{ $errors->first('phone') }}</strong>
+                        <strong>{{ $errors->first('phone' . $number) }}</strong>
                       </span>
                     @endif
                   </div>
@@ -176,6 +187,19 @@
                         </button>
                       </span>
                     </div>
+                  {{--@elseif($loop->index >= 1)--}}
+                    {{--<div class="col-lg-1">--}}
+                      {{--<span>--}}
+                        {{--<button--}}
+                            {{--id="addPhone"--}}
+                            {{--class="btn btn-danger float-right"--}}
+                            {{--type="button" data-toggle="modal"--}}
+                            {{--data-target="#addPhoneModal"--}}
+                        {{-->--}}
+                          {{--<i class="icon ion-minus-round"></i>--}}
+                        {{--</button>--}}
+                      {{--</span>--}}
+                    {{--</div>--}}
                   @endif
                 </div>
               @endforeach

@@ -5,9 +5,10 @@ $(function () {
   $('.card-body').fadeIn('fast');
 
   // Find autofocus element in the input of modal and focus input
-  $('.modal').on('shown.bs.modal', function () {
+  $('.modal').on('shown.bs.modal', () => {
     $(this).find('[autofocus]').focus();
   });
+
 
   $('#addEmailForm').submit(evt => {
     addForms(evt, 'email', 'Email');
@@ -22,6 +23,7 @@ addForms = (evt, x, y) => {
   evt.preventDefault();
   const form = $(evt.target);
 
+
   $.ajax({
     type: "POST",
     url: form.attr("action"),
@@ -32,7 +34,6 @@ addForms = (evt, x, y) => {
     //
   }).fail(err => {
     if (err.responseJSON) {
-      console.log(err.responseJSON);
       const errMessage = err.responseJSON.errors.newemail[0];
 
       // Throw error message for form validation
@@ -42,12 +43,10 @@ addForms = (evt, x, y) => {
       $('.modal').find('[autofocus]').focus();
 
     } else {
-      // Submit if no error
-      $(`#add${y}Form`).unbind().submit();
-
+      $('.modal').modal('hide');
+      location.reload();
     }
   });
-
 }
 
 
