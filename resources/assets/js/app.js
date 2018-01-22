@@ -2,7 +2,7 @@ require('./bootstrap');
 
 $(function () {
   // Fade the card bodies in on page load
-  $('.card-body').fadeIn('fast');
+  $('.card-body').fadeIn(0);
 
   // Find autofocus element in the input of modal and focus input
   $('.modal').on('shown.bs.modal', () => {
@@ -18,28 +18,37 @@ $(function () {
   });
 
   $('#addEmailForm').submit(evt => {
-    addForms(evt, 'email', 'Email');
+    addForms(evt, 'email');
   });
 
   $('#addPhoneForm').submit(evt => {
-    addForms(evt, 'phone', 'Phone',);
+    addForms(evt, 'phone');
+  })
+
+  for (let i = 1; i < 6; i++) {
+    $(`#deleteEmail${i}`).on('click', () => {
+      let indexToDel = $(`#deleteEmail${i}`).data('index');
+      $('#deleteEmailForm').data('index',indexToDel);
+    });
+  }
+
+
+  $('#deleteEmailForm').submit(evt => {
+    deleteForms(evt);
   });
+
 });
 
 disableSubmitButtons = () => {
-  $('#submitEmail,#submitPhone,#submitEdit,#submitCreate').prop('disabled', 'disabled');
+  $('#submitEdit,#submitCreate').prop('disabled', 'disabled');
 }
 
-enableSubmitButtons = () => {
-  $('#submitEmail,#submitPhone').prop('disabled', false);
-}
-
-addForms = (evt, x, y) => {
+addForms = (evt, x) => {
   evt.preventDefault();
   const form = $(evt.target);
 
   // Disable submit button after first click
-  disableSubmitButtons();
+  $('#submitEmail,#submitPhone').prop('disabled', 'disabled');
 
   $.ajax({
     type: "POST",
@@ -47,11 +56,20 @@ addForms = (evt, x, y) => {
     dataType: 'json',
     data: form.serialize(), // serializes the form's elements.
 
-  }).done(() => {
-    //
+  }).done(res => {
+    if (res.success) {
+      $('.modal').modal('hide');
+      location.reload();
+    }
   }).fail(err => {
     if (err.responseJSON) {
-      const errMessage = err.responseJSON.errors.newemail[0];
+      let errMessage;
+
+      if (x === 'email') {
+        errMessage = err.responseJSON.errors.newemail[0];
+      } else {
+        errMessage = err.responseJSON.errors.newphone[0]
+      }
 
       // Throw error message for form validation
       $(`#${x}-error`).html(errMessage);
@@ -60,10 +78,31 @@ addForms = (evt, x, y) => {
       $('.modal').find('[autofocus]').focus();
 
       // enable button again
-      enableSubmitButtons();
-    } else {
+      $('#submitEmail,#submitPhone').prop('disabled', false);
+    }
+  });
+}
+
+deleteForms = (evt) => {
+  evt.preventDefault();
+  const form = $(evt.target);
+  const url = form.attr("action").slice(0, -1) + form.data('index');
+  $('#deleteButton,#deletePhone').prop('disabled', 'disabled');
+
+  $.ajax({
+    type: "POST",
+    url: url,
+    dataType: 'json',
+    data: form.serialize(), // serializes the form's elements.
+
+  }).done(res => {
+    console.log(res);
+    if (res.success) {
       $('.modal').modal('hide');
       location.reload();
     }
+
+  }).fail(err => {
+    console.log(err);
   });
 }

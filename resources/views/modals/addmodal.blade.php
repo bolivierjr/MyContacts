@@ -1,16 +1,16 @@
-<!-- The Email Modal -->
+{{-- The Email Modal --}}
 <div class="modal fade" id="addEmailModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <form id="addEmailForm" class="form-horizontal" method="POST" action="{{ route('contacts.email', ['id' => $contact->id]) }}">
         {{ csrf_field() }}
-        <!-- Email Modal Header -->
+        {{-- Email Modal Header --}}
         <div class="modal-header">
           <h4 class="modal-title">Add another email</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
-        <!-- Email Modal body -->
+        {{-- Email Modal body --}}
         <div class="modal-body">
 
           <div class="form-group row">
@@ -33,7 +33,7 @@
           </div>
         </div>
 
-        <!-- Email Modal footer -->
+        {{-- Email Modal footer --}}
         <div class="modal-footer">
           <button id="submitEmail" type="submit" class="btn btn-primary float-right">
             Save
@@ -51,13 +51,13 @@
     <div class="modal-content">
       <form id="addPhoneForm" class="form-horizontal" method="POST" action="{{ route('contacts.phone', ['id' => $contact->id]) }}">
       {{ csrf_field() }}
-      <!-- Phone Modal Header -->
+      {{-- Phone Modal Header --}}
         <div class="modal-header">
           <h4 class="modal-title">Add phone number</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
-        <!-- Phone Modal body -->
+        {{-- Phone Modal body --}}
         <div class="modal-body">
 
           <div class="form-group row">
@@ -80,7 +80,7 @@
           </div>
         </div>
 
-        <!-- Phone Modal footer -->
+        {{-- Phone Modal footer --}}
         <div class="modal-footer">
           <button id="submitPhone" type="submit" class="btn btn-primary float-right">
             Save

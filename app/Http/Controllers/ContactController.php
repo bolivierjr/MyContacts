@@ -30,8 +30,6 @@ class ContactController extends Controller
 
             return response()->json($contacts);
         }
-
-        return 'You are not authenticated';
     }
 
     /**
@@ -45,7 +43,15 @@ class ContactController extends Controller
                 'firstname' => 'required|string|max:64',
                 'lastname' => 'required|string|max:64',
                 'email1' => 'sometimes|nullable|email|max:64',
+                'email2' => 'sometimes|nullable|email|max:64',
+                'email3' => 'sometimes|nullable|email|max:64',
+                'email4' => 'sometimes|nullable|email|max:64',
+                'email5' => 'sometimes|nullable|email|max:64',
                 'phone1' => 'sometimes|nullable|max:20',
+                'phone2' => 'sometimes|nullable|max:20',
+                'phone3' => 'sometimes|nullable|max:20',
+                'phone4' => 'sometimes|nullable|max:20',
+                'phone5' => 'sometimes|nullable|max:20',
                 'address' => 'required|string|max:64',
                 'city' => 'required|string|max:32',
                 'state' => 'required|string|size:2|regex:/([a-zA-Z])$/',
@@ -56,7 +62,15 @@ class ContactController extends Controller
                 'firstname' => 'required|string|max:64',
                 'lastname' => 'required|string|max:64',
                 'email1' => 'sometimes|nullable|email|max:64',
+                'email2' => 'sometimes|nullable|email|max:64',
+                'email3' => 'sometimes|nullable|email|max:64',
+                'email4' => 'sometimes|nullable|email|max:64',
+                'email5' => 'sometimes|nullable|email|max:64',
                 'phone1' => 'sometimes|nullable|max:20',
+                'phone2' => 'sometimes|nullable|max:20',
+                'phone3' => 'sometimes|nullable|max:20',
+                'phone4' => 'sometimes|nullable|max:20',
+                'phone5' => 'sometimes|nullable|max:20',
             ])->validate();
         }
     }
@@ -183,7 +197,11 @@ class ContactController extends Controller
         $contact->state = $request->input('state');
         $contact->zipcode = $request->input('zipcode');
 
-        $fields = ['email1', 'email2', 'email3', 'phone1', 'phone2', 'phone3'];
+        $fields = [
+            'email1', 'email2', 'email3', 'email4', 'email5',
+            'phone1', 'phone2', 'phone3', 'phone4', 'phone5'
+        ];
+
         foreach ($fields as $field) {
             $db_field = substr($field, 0, -1);
 

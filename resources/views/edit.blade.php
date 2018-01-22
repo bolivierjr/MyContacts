@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  <!-- Edit form component -->
+  {{-- Edit form component --}}
   <div class="container">
     <div class="row justify-content-md-center mt-5">
       <div class="col-md-7">
@@ -12,7 +12,8 @@
           </div>
 
           <div class="card-body">
-            <form id="editForm" class="form-horizontal" method="POST" action="{{ route('contacts.update', ['id' => $contact->id]) }}">
+            <form id="editForm" class="form-horizontal" method="POST"
+                  action="{{ route('contacts.update', ['id' => $contact->id]) }}">
               {{ csrf_field() }}
 
               <div class="form-group row">
@@ -56,6 +57,7 @@
                 </div>
               </div>
 
+              {{-- If email array is empty --}}
               @if(empty($contact->email))
                 <div class="form-group row">
                   <label for="email1" class="col-lg-3 col-form-label text-lg-right">Email</label>
@@ -78,16 +80,15 @@
                 </div>
               @endif
 
+              {{-- If email array is not empty, loop through and add inputs for each element --}}
               @foreach($contact->email as $email)
                 @php
                   $number = $loop->iteration
                 @endphp
-                {{--@if($loop->index == 5)--}}
-                {{--@break--}}
-                {{--@endif--}}
+
                 <div class="form-group row">
                   <label for="email{{ $number }}" class="col-lg-3 col-form-label text-lg-right">
-                    Email{{ $loop->iteration > 1 ? ' ' . $number : '' }}
+                    Email{{ $number > 0 ? ' ' . $number : '' }}
                   </label>
 
                   <div class="col-lg-6">
@@ -107,23 +108,63 @@
                     @endif
                   </div>
 
-                  @if($loop->index < 1)
+                  {{--
+                  Do not show add button if phone array has 5+ elements, only the delete button.
+                  --}}
+                  @if(count($contact->email) >= 5)
+                    <div id="delete1" class="col-lg-1">
+                      <span>
+                        <button
+                            class="btn btn-danger float-right"
+                            id="deleteEmail{{ $number }}"
+                            type="button"
+                            data-toggle="modal"
+                            data-target="#deleteEmailModal"
+                            data-index="{{ $loop->index }}"
+                        >
+                          <i class="icon ion-close-circled"></i>
+                        </button>
+                      </span>
+                    </div>
+
+                  {{-- Show add button only on the top input --}}
+                  @elseif($loop->index < 1)
                     <div class="col-lg-1">
                       <span>
                         <button
                             id="addEmail"
                             class="btn btn-primary float-right"
-                            type="button" data-toggle="modal"
+                            type="button"
+                            data-toggle="modal"
                             data-target="#addEmailModal"
                         >
                           <i class="icon ion-plus-round"></i>
                         </button>
-                        </span>
+                      </span>
+                    </div>
+
+                  {{-- Show the delete buttons on the inputs only after the top input --}}
+                  @elseif($loop->index >= 1)
+                    <div class="col-lg-1">
+                      <span>
+                        <button
+                            class="btn btn-danger float-right"
+                            id="deleteEmail{{ $number }}"
+                            type="button"
+                            data-toggle="modal"
+                            data-target="#deleteEmailModal"
+                            data-index="{{ $loop->index }}"
+                        >
+                          <i class="icon ion-close-circled"></i>
+                        </button>
+                      </span>
                     </div>
                   @endif
                 </div>
+
               @endforeach
 
+              {{-- If phone array is empty --}}
               @if(empty($contact->phone))
                 <div class="form-group row">
                   <label for="phone1" class="col-lg-3 col-form-label text-lg-right">Phone</label>
@@ -146,14 +187,15 @@
                 </div>
               @endif
 
+              {{-- If phone array is not empty, loop through and add inputs for each element --}}
               @foreach($contact->phone as $phone)
                 @php
-                  $number = $loop->iteration
+                  $number = $loop->iteration;
                 @endphp
 
                 <div class="form-group row">
                   <label for="phone{{ $number }}" class="col-lg-3 col-form-label text-lg-right">
-                    Phone{{ $loop->iteration > 1 ? ' ' . $number : '' }}
+                    Phone{{ $number > 0 ? ' ' . $number : '' }}
                   </label>
 
                   <div class="col-lg-6">
@@ -174,7 +216,26 @@
                     @endif
                   </div>
 
-                  @if($loop->index < 1)
+                  {{--
+                  Do not show add button if phone array has 5+ elements, only the delete button.
+                  --}}
+                  @if(count($contact->phone) >= 5)
+                    <div class="col-lg-1">
+                      <span>
+                        <button
+                            class="btn btn-danger float-right"
+                            id="deletePhone{{ $number }}"
+                            data-toggle="modal"
+                            data-target="#deletePhoneModal"
+                            data-index="{{ $loop->index }}"
+                        >
+                          <i class="icon ion-close-circled"></i>
+                        </button>
+                      </span>
+                    </div>
+
+                  {{-- Show add button only on the top input --}}
+                  @elseif($loop->index < 1)
                     <div class="col-lg-1">
                       <span>
                         <button
@@ -187,19 +248,20 @@
                         </button>
                       </span>
                     </div>
-                  {{--@elseif($loop->index >= 1)--}}
-                    {{--<div class="col-lg-1">--}}
-                      {{--<span>--}}
-                        {{--<button--}}
-                            {{--id="addPhone"--}}
-                            {{--class="btn btn-danger float-right"--}}
-                            {{--type="button" data-toggle="modal"--}}
-                            {{--data-target="#addPhoneModal"--}}
-                        {{-->--}}
-                          {{--<i class="icon ion-minus-round"></i>--}}
-                        {{--</button>--}}
-                      {{--</span>--}}
-                    {{--</div>--}}
+
+                  {{-- Show the delete buttons on the inputs only after the top input --}}
+                  @elseif($loop->index >= 1)
+                    <div class="col-lg-1">
+                      <button
+                          id="deletePhone{{ $number }}"
+                          class="btn btn-danger float-right"
+                          type="button" data-toggle="modal"
+                          data-target="#deletePhoneModal"
+                          data-index="{{ $loop->index }}"
+                      >
+                        <i class="icon ion-close-circled"></i>
+                      </button>
+                    </div>
                   @endif
                 </div>
               @endforeach
@@ -305,5 +367,7 @@
     </div>
   </div>
   @include('modals.addmodal')
+  @include('modals.deleteemail')
+  @include('modals.deletephone')
 
 @endsection

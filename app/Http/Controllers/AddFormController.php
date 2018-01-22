@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Validator;
 use App\People;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AddFormController extends ContactController
 {
     public function addEmail(Request $request, $id)
     {
         $request->validate([
-            'newemail' => 'sometimes|email|max:64',
+            'newemail' => 'required|email|max:64',
         ]);
 
         $contact = People::find($id);
@@ -23,13 +24,13 @@ class AddFormController extends ContactController
 
         $contact->save();
 
-        return redirect('contacts/'. $id . '/edit');
+        return response()->json(['success' => true]);
     }
 
     public function addPhone(Request $request, $id)
     {
         $request->validate([
-            'newphone' => 'sometimes|nullable|max:20',
+            'newphone' => 'required|max:20',
         ]);
 
         $contact = People::find($id);
@@ -42,6 +43,33 @@ class AddFormController extends ContactController
 
         $contact->save();
 
-        return redirect('contacts/'. $id . '/edit');
+        return response()->json(['success' => true]);
+    }
+
+    public function deleteEmail(Request $request, $id, $index)
+    {
+        $contact = People::find($id);
+
+        $email = $contact->email;
+        array_splice($email, $index, 1);
+        $contact->email = $email;
+
+        $contact->save();
+
+        return response()->json(['success' => true, ]);
+
+    }
+
+    public function deletePhone(Request $request, $id, $index)
+    {
+        $contact = People::find($id);
+
+        $phone = $contact->phone;
+        array_splice($phone, $index, 1);
+        $contact->phone = $phone;
+
+        $contact->save();
+
+        return response()->json(['success' => true, ]);
     }
 }

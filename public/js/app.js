@@ -11046,7 +11046,7 @@ $(function () {
   var _this = this;
 
   // Fade the card bodies in on page load
-  $('.card-body').fadeIn('fast');
+  $('.card-body').fadeIn(0);
 
   // Find autofocus element in the input of modal and focus input
   $('.modal').on('shown.bs.modal', function () {
@@ -11062,28 +11062,39 @@ $(function () {
   });
 
   $('#addEmailForm').submit(function (evt) {
-    addForms(evt, 'email', 'Email');
+    addForms(evt, 'email');
   });
 
   $('#addPhoneForm').submit(function (evt) {
-    addForms(evt, 'phone', 'Phone');
+    addForms(evt, 'phone');
+  });
+
+  var _loop = function _loop(i) {
+    $('#deleteEmail' + i).on('click', function () {
+      var indexToDel = $('#deleteEmail' + i).data('index');
+      $('#deleteEmailForm').data('index', indexToDel);
+    });
+  };
+
+  for (var i = 1; i < 6; i++) {
+    _loop(i);
+  }
+
+  $('#deleteEmailForm').submit(function (evt) {
+    deleteForms(evt);
   });
 });
 
 disableSubmitButtons = function disableSubmitButtons() {
-  $('#submitEmail,#submitPhone,#submitEdit,#submitCreate').prop('disabled', 'disabled');
+  $('#submitEdit,#submitCreate').prop('disabled', 'disabled');
 };
 
-enableSubmitButtons = function enableSubmitButtons() {
-  $('#submitEmail,#submitPhone').prop('disabled', false);
-};
-
-addForms = function addForms(evt, x, y) {
+addForms = function addForms(evt, x) {
   evt.preventDefault();
   var form = $(evt.target);
 
   // Disable submit button after first click
-  disableSubmitButtons();
+  $('#submitEmail,#submitPhone').prop('disabled', 'disabled');
 
   $.ajax({
     type: "POST",
@@ -11091,11 +11102,20 @@ addForms = function addForms(evt, x, y) {
     dataType: 'json',
     data: form.serialize() // serializes the form's elements.
 
-  }).done(function () {
-    //
+  }).done(function (res) {
+    if (res.success) {
+      $('.modal').modal('hide');
+      location.reload();
+    }
   }).fail(function (err) {
     if (err.responseJSON) {
-      var errMessage = err.responseJSON.errors.newemail[0];
+      var errMessage = void 0;
+
+      if (x === 'email') {
+        errMessage = err.responseJSON.errors.newemail[0];
+      } else {
+        errMessage = err.responseJSON.errors.newphone[0];
+      }
 
       // Throw error message for form validation
       $('#' + x + '-error').html(errMessage);
@@ -11104,11 +11124,31 @@ addForms = function addForms(evt, x, y) {
       $('.modal').find('[autofocus]').focus();
 
       // enable button again
-      enableSubmitButtons();
-    } else {
+      $('#submitEmail,#submitPhone').prop('disabled', false);
+    }
+  });
+};
+
+deleteForms = function deleteForms(evt) {
+  evt.preventDefault();
+  var form = $(evt.target);
+  var url = form.attr("action").slice(0, -1) + form.data('index');
+  $('#deleteButton,#deletePhone').prop('disabled', 'disabled');
+
+  $.ajax({
+    type: "POST",
+    url: url,
+    dataType: 'json',
+    data: form.serialize() // serializes the form's elements.
+
+  }).done(function (res) {
+    console.log(res);
+    if (res.success) {
       $('.modal').modal('hide');
       location.reload();
     }
+  }).fail(function (err) {
+    console.log(err);
   });
 };
 

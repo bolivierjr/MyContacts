@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  <!-- Create form component -->
+  {{-- Create form component --}}
   <div class="container">
     <div class="row justify-content-md-center mt-5">
       <div class="col-md-7">

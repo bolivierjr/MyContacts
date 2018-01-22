@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  <!-- Main Contacts component -->
+  {{-- Main Contacts component --}}
   <div class="container">
     <div class="row justify-content-md-center mt-5">
       <div class="col-md-8">
@@ -14,12 +14,12 @@
             </div>
           </div>
 
-          <!-- Show this if no contacts are found -->
+          {{-- Show this if no contacts are found --}}
           @if(!count($peoples))
             <div class="card-body"><p>Add some contacts!</p></div>
 
           @else
-            <div class="card-body">
+            <div class="card-body fade-in">
               <div class="table-responsive">
                 <table data-pagination="true" data-search="true" data-toggle="table">
                   <thead>
@@ -49,20 +49,20 @@
                       <td>{{$people->state}}</td>
                       <td>{{$people->zipcode}}</td>
 
-                      <!-- Button to edit the contact -->
+                      {{-- Button to edit the contact --}}
                       <td class="text-center">
                         <a class="btn btn-info btn-sm" href="/contacts/{{ $people->id }}/edit">
                           <i class="icon ion-edit"></i>
                         </a>
                       </td>
 
-                      <!-- Button to delete contact from db -->
+                      {{-- Button to delete contact from db --}}
                       <td class="text-center">
                         <form method="POST" action="{{ route('contacts.destroy', ['id' => $people->id]) }}">
                           {{ csrf_field() }}
                           <input type="hidden" name="_method" value="DELETE">
-                          <button type="submit" class="btn btn-sm">
-                            <i class="icon ion-trash-a"></i>
+                          <button type="submit" class="btn btn-sm btn-danger">
+                            <i class="icon ion-close-circled"></i>
                           </button>
                         </form>
                       </td>
