@@ -11069,6 +11069,10 @@ $(function () {
     addForms(evt, 'phone');
   });
 
+  // Loops through the email buttons and listens for a click event.
+  // Takes the the data from the data-index attribute and stores it in
+  // the modal form.
+
   var _loop = function _loop(i) {
     $('#deleteEmail' + i).on('click', function () {
       var indexToDel = $('#deleteEmail' + i).data('index');
@@ -11081,6 +11085,21 @@ $(function () {
   }
 
   $('#deleteEmailForm').submit(function (evt) {
+    deleteForms(evt);
+  });
+
+  var _loop2 = function _loop2(i) {
+    $('#deletePhone' + i).on('click', function () {
+      var indexToDel = $('#deletePhone' + i).data('index');
+      $('#deletePhoneForm').data('index', indexToDel);
+    });
+  };
+
+  for (var i = 1; i < 6; i++) {
+    _loop2(i);
+  }
+
+  $('#deletePhoneForm').submit(function (evt) {
     deleteForms(evt);
   });
 });
@@ -11133,7 +11152,9 @@ deleteForms = function deleteForms(evt) {
   evt.preventDefault();
   var form = $(evt.target);
   var url = form.attr("action").slice(0, -1) + form.data('index');
-  $('#deleteButton,#deletePhone').prop('disabled', 'disabled');
+
+  // Disable buttons after first click
+  $('#deleteButton,#deleteButton1').prop('disabled', 'disabled');
 
   $.ajax({
     type: "POST",

@@ -178,7 +178,7 @@
 
               <div class="form-group row">
                 <div class="col-lg-6 offset-lg-3">
-                  <a class="btn btn-info float-left" href="/contacts">
+                  <a id="back" class="btn btn-info float-left" href="/contacts">
                     Back
                   </a>
                   <button id="submitCreate" type="submit" class="btn btn-primary float-right">

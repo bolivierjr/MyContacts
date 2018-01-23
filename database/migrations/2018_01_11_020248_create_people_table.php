@@ -24,7 +24,7 @@ class CreatePeopleTable extends Migration
             $table->string('zipcode', 10)->nullable();
             $table->text('email')->nullable();
             $table->text('phone')->nullable();
-            $table->date('last_contact')->nullable();
+            $table->dateTime('last_contact')->nullable();
             $table->timestampTz('created_at')->nullable(false);
         });
     }

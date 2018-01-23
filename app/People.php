@@ -24,7 +24,7 @@ class People extends Model
 
     protected $fillable = [
         'user_id', 'firstname', 'lastname', 'address', 'city',
-        'state', 'zipcode', 'last_contacted',
+        'state', 'zipcode', 'last_contacted', 'create_at'
     ];
 
     /**

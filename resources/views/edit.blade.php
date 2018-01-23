@@ -25,7 +25,7 @@
                       type="text"
                       class="form-control{{ $errors->has('firstname') ? ' is-invalid' : '' }}"
                       name="firstname"
-                      value="{{ old('firstname') ? old('firstname') : $contact->firstname }}"
+                      value="{{ $contact->firstname  }}"
                       autofocus
                   >
 
@@ -46,7 +46,7 @@
                       type="text"
                       class="form-control{{ $errors->has('lastname') ? ' is-invalid' : '' }}"
                       name="lastname"
-                      value="{{ old('lastname') ? old('lastname') : $contact->lastname }}"
+                      value="{{ $contact->lastname }}"
                   >
 
                   @if ($errors->has('lastname'))
@@ -97,7 +97,7 @@
                         type="text"
                         class="form-control{{ $errors->has('email' . $number) ? ' is-invalid' : '' }}"
                         name="email{{ $number }}"
-                        value="{{ old('email' . $number) ? old('email' . $number) : $email }}"
+                        value="{{ $email }}"
                     >
                     <input type="hidden" name="email{{ $number }}_variable" value="{{ $email }}">
 
@@ -204,7 +204,7 @@
                         type="text"
                         class="form-control{{ $errors->has('phone' . $number) ? ' is-invalid' : '' }}"
                         name="phone{{ $number }}"
-                        value="{{ old('phone' . $number) ? old('phone' . $number) : $phone }}"
+                        value="{{ $phone }}"
                     >
 
                     <input type="hidden" name="phone{{ $number }}_variable" value="{{ $phone }}">
@@ -267,6 +267,31 @@
               @endforeach
 
               <div class="form-group row">
+                <label for="city" class="col-lg-3 col-form-label text-lg-right">Contacted</label>
+
+                <div class="col-lg-6">
+
+                  @if(!empty($contact->last_contact))
+                  <input
+                      id="date"
+                      type="date"
+                      class="form-control"
+                      name="date"
+                      value="{{ \Carbon\Carbon::parse($contact->last_contact)->toDateString() }}"
+                  >
+                  @else
+                    <input
+                        id="date"
+                        type="date"
+                        class="form-control"
+                        name="date"
+                        value="{{ $contact->last_contact }}"
+                    >
+                  @endif
+                </div>
+              </div>
+
+              <div class="form-group row">
                 <label for="address" class="col-lg-3 col-form-label text-lg-right">Street Address</label>
 
                 <div class="col-lg-6">
@@ -275,7 +300,7 @@
                       type="text"
                       class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}"
                       name="address"
-                      value="{{ old('address') ? old('address') : $contact->address }}"
+                      value="{{ $contact->address }}"
                   >
 
                   @if ($errors->has('address'))
@@ -295,7 +320,7 @@
                       type="text"
                       class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}"
                       name="city"
-                      value="{{ old('city') ? old('city') : $contact->city }}"
+                      value="{{ $contact->city }}"
                   >
 
                   @if ($errors->has('city'))
@@ -315,7 +340,7 @@
                       type="text"
                       class="form-control{{ $errors->has('state') ? ' is-invalid' : '' }}"
                       name="state"
-                      value="{{ old('state') ? old('state') : $contact->state }}"
+                      value="{{ $contact->state }}"
                   >
 
                   @if ($errors->has('state'))
@@ -335,7 +360,7 @@
                       type="text"
                       class="form-control{{ $errors->has('zipcode') ? ' is-invalid' : '' }}"
                       name="zipcode"
-                      value="{{ old('zipcode') ? old('zipcode') : $contact->zipcode }}"
+                      value="{{ $contact->zipcode }}"
                   >
 
                   @if ($errors->has('zipcode'))
@@ -350,7 +375,7 @@
 
               <div class="form-group row">
                 <div class="col-lg-6 offset-lg-3">
-                  <a class="btn btn-info float-left" href="/contacts">
+                  <a id="back" class="btn btn-info float-left" href="/contacts">
                     Back
                   </a>
                   <button id="submitEdit" type="submit" class="btn btn-primary float-right">
@@ -366,8 +391,7 @@
       </div>
     </div>
   </div>
-  @include('modals.addmodal')
-  @include('modals.deleteemail')
-  @include('modals.deletephone')
+  @include('modals.addmodals')
+  @include('modals.deletemodals')
 
 @endsection

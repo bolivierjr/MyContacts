@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('contacts');
 });
 
 Route::get('api/contacts', 'ContactController@getJson');

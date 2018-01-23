@@ -9,61 +9,79 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
-      {{-- Contact Modal body --}}
-      <div class="row">
-        <div class="col-md-6 offset-md-1">
-          @forelse($people->email as $email)
-            @if($loop->index < 1)
-              <strong>Email:</strong> {{$email}}</div></div>
+      <div class="modal-body">
+        {{-- Contact Modal body --}}
+        <div class="row">
+          <div class="col-md-10 offset-md-1">
+            @forelse($people->email as $email)
+              @if($loop->index < 1)
+                <strong>Email:</strong> {{$email}}</div></div>
 
-            @elseif($loop->index >= 1)
-              <div class="row">
-                <div class="col-md-6 offset-md-1">
-                  <div class="emailIndent">{{$email}}</div>
+              @elseif($loop->index >= 1)
+                <div class="row">
+                  <div class="col-md-10 offset-md-1">
+                    <div class="emailIndent">{{$email}}</div>
+                  </div>
                 </div>
-              </div>
-            @endif
+              @endif
 
-          @empty
-            <strong>Email:</strong></div></div>
-          @endforelse
+            @empty
+              <strong>Email:</strong></div></div>
+            @endforelse
 
+        <br>
 
-      <div class="row">
-        <div class="col-md-6 offset-md-1">
-          @forelse($people->phone as $phone)
-            @if($loop->index < 1)
-              <strong>Phone:</strong> {{$phone}}</div></div>
+        <div class="row">
+          <div class="col-md-10 offset-md-1">
+            @forelse($people->phone as $phone)
+              @if($loop->index < 1)
+                <strong>Phone:</strong> {{$phone}}</div></div>
 
-            @elseif($loop->index >= 1)
-              <div class="row">
-                <div class="col-md-6 offset-md-1">
-                  <div class="phoneIndent">{{$phone}}</div>
+              @elseif($loop->index >= 1)
+                <div class="row">
+                  <div class="col-md-10 offset-md-1">
+                    <div class="phoneIndent">{{$phone}}</div>
+                  </div>
                 </div>
-              </div>
+              @endif
+
+            @empty
+              <strong>Phone:</strong></div></div>
+            @endforelse
+
+        <br>
+
+        <div class="row">
+          <div class="col-md-10 offset-md-1">
+            <strong>Contacted: </strong>
+            @if(!empty($people->last_contact))
+              {{ \Carbon\Carbon::parse($people->last_contact)->diffForHumans() }}
             @endif
-
-          @empty
-            <strong>Phone:</strong></div></div>
-          @endforelse
-
-      <div class="row">
-        <div class="col-md-6 offset-md-1">
-          @if($people->address)
-            <strong>Address:</strong> {{$people->address}}
-          @else
-            <strong>Address:</strong>
-          @endif
+          </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-6 offset-md-1">
-          @if($people->address)
-            <strong>City/State:</strong> {{$people->city}}, {{$people->state}}, {{$people->zipcode}}
-          @else
-            <strong>City/State:</strong>
-          @endif
+        <br>
+
+        <div class="row">
+          <div class="col-md-10 offset-md-1">
+            @if($people->address)
+              <strong>Address:</strong> {{$people->address}}
+            @else
+              <strong>Address:</strong>
+            @endif
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-md-10 offset-md-1">
+            @if($people->address)
+              <strong>City/State:</strong> {{$people->city}}, {{$people->state}}, {{$people->zipcode}}
+            @else
+              <strong>City/State:</strong>
+            @endif
+          </div>
         </div>
       </div>
 

@@ -28,8 +28,10 @@ class ContactController extends Controller
             $user_id = Auth::id();
             $contacts = User::find($user_id)->peoples;
 
-            return response()->json($contacts);
+            return response()->json($contacts, 200);
         }
+
+        return response()->json(['error' => 'You are not authorized.'], 401);
     }
 
     /**
@@ -122,6 +124,7 @@ class ContactController extends Controller
         $contacts->city = $request->input('city');
         $contacts->state = $request->input('state');
         $contacts->zipcode = $request->input('zipcode');
+        $contacts->created_at = \Carbon\Carbon::now();
 
         /**
          * Support for multiple emails and phone numbers using JSON casting.
@@ -192,6 +195,16 @@ class ContactController extends Controller
 
         $contact->firstname = $request->input('firstname');
         $contact->lastname = $request->input('lastname');
+
+        $date = $request->input('date');
+        if (empty($date)) {
+            $contact->last_contact = $date;
+        } elseif ($date == \Carbon\Carbon::today()->toDateString()) {
+            $contact->last_contact = \Carbon\Carbon::now();
+        } else {
+            $contact->last_contact = \Carbon\Carbon::parse($date)->toDateTimeString();
+        }
+
         $contact->address = $request->input('address');
         $contact->city = $request->input('city');
         $contact->state = $request->input('state');
@@ -242,6 +255,11 @@ class ContactController extends Controller
     public function destroy($id)
     {
         $contact = People::find($id);
+
+        if (auth()->user()->id != $contact->user_id) {
+            return redirect('/contacts');
+        }
+
         $contact->delete();
 
         return redirect('/contacts');
