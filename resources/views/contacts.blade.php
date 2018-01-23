@@ -58,16 +58,18 @@
 
                       {{-- Button to delete contact from db --}}
                       <td class="text-center">
-                        <form method="POST" action="{{ route('contacts.destroy', ['id' => $people->id]) }}">
-                          {{ csrf_field() }}
-                          <input type="hidden" name="_method" value="DELETE">
-                          <button type="submit" class="btn btn-sm btn-danger">
-                            <i class="icon ion-close-circled"></i>
-                          </button>
-                        </form>
+                        <button
+                            class="btn btn-sm btn-danger"
+                            id="deleteContact"
+                            data-toggle="modal"
+                            data-target="#deleteContactModal"
+                        >
+                          <i class="icon ion-close-circled"></i>
+                        </button>
                       </td>
                     </tr>
                     @include('modals.contact')
+                    @include('modals.deletecontact')
                   @endforeach
 
                   </tbody>

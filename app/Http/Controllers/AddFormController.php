@@ -34,7 +34,7 @@ class AddFormController extends ContactController
     public function addPhone(Request $request, $id)
     {
         $request->validate([
-            'newphone' => 'required|max:20',
+            'newphone' => 'required|max:20|regex:/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i',
         ]);
 
         $contact = People::find($id);

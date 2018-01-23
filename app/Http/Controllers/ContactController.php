@@ -49,11 +49,11 @@ class ContactController extends Controller
                 'email3' => 'sometimes|nullable|email|max:64',
                 'email4' => 'sometimes|nullable|email|max:64',
                 'email5' => 'sometimes|nullable|email|max:64',
-                'phone1' => 'sometimes|nullable|max:20',
-                'phone2' => 'sometimes|nullable|max:20',
-                'phone3' => 'sometimes|nullable|max:20',
-                'phone4' => 'sometimes|nullable|max:20',
-                'phone5' => 'sometimes|nullable|max:20',
+                'phone1' => 'sometimes|nullable|max:20|regex:/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i',
+                'phone2' => 'sometimes|nullable|max:20|regex:/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i',
+                'phone3' => 'sometimes|nullable|max:20|regex:/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i',
+                'phone4' => 'sometimes|nullable|max:20|regex:/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i',
+                'phone5' => 'sometimes|nullable|max:20|regex:/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i',
                 'address' => 'required|string|max:64',
                 'city' => 'required|string|max:32',
                 'state' => 'required|string|size:2|regex:/([a-zA-Z])$/',
@@ -68,11 +68,11 @@ class ContactController extends Controller
                 'email3' => 'sometimes|nullable|email|max:64',
                 'email4' => 'sometimes|nullable|email|max:64',
                 'email5' => 'sometimes|nullable|email|max:64',
-                'phone1' => 'sometimes|nullable|max:20',
-                'phone2' => 'sometimes|nullable|max:20',
-                'phone3' => 'sometimes|nullable|max:20',
-                'phone4' => 'sometimes|nullable|max:20',
-                'phone5' => 'sometimes|nullable|max:20',
+                'phone1' => 'sometimes|nullable|max:20|regex:/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i',
+                'phone2' => 'sometimes|nullable|max:20|regex:/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i',
+                'phone3' => 'sometimes|nullable|max:20|regex:/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i',
+                'phone4' => 'sometimes|nullable|max:20|regex:/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i',
+                'phone5' => 'sometimes|nullable|max:20|regex:/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i',
             ])->validate();
         }
     }
@@ -257,12 +257,12 @@ class ContactController extends Controller
         $contact = People::find($id);
 
         if (auth()->user()->id != $contact->user_id) {
-            return redirect('/contacts');
+            return response()->json(['error' => "You are not authorized."], 401);
         }
 
         $contact->delete();
 
-        return redirect('/contacts');
+        return response()->json(['success' => true], 200);
     }
 
 }

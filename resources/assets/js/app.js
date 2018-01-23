@@ -9,14 +9,12 @@ $(function () {
     $(this).find('[autofocus]').focus();
   });
 
-  $('#createForm').submit(() => {
-    disableSubmitButtons();
+  // Disable buttons on submit
+  $('#createForm,#editForm').submit(() => {
+    $('#submitEdit,#submitCreate').prop('disabled', 'disabled');
   });
 
-  $('#editForm').submit(() => {
-    disableSubmitButtons();
-  });
-
+  // Ajax requests to add emails and phones
   $('#addEmailForm').submit(evt => {
     addForms(evt, 'email');
   });
@@ -25,9 +23,11 @@ $(function () {
     addForms(evt, 'phone');
   });
 
-  // Loops through the email buttons and listens for a click event.
-  // Takes the the data from the data-index attribute and stores it in
-  // the modal form.
+  /*
+   * Loops through the email buttons and listens for a click event.
+   * Takes the the data from the data-index attribute and stores it in
+   * the modal form. Makes Ajax requests to delete extra emails/phones.
+   */
   for (let i = 1; i < 6; i++) {
     $(`#deleteEmail${i}`).on('click', () => {
       let indexToDel = $(`#deleteEmail${i}`).data('index');
@@ -50,12 +50,14 @@ $(function () {
     deleteForms(evt);
   });
 
+  // Delete whole contact confirmation ajax request
+  $('#deleteContactForm').submit(evt => {
+    deleteContact(evt);
+  });
+
 });
 
-disableSubmitButtons = () => {
-  $('#submitEdit,#submitCreate').prop('disabled', 'disabled');
-}
-
+// Functions
 addForms = (evt, x) => {
   evt.preventDefault();
   const form = $(evt.target);
@@ -107,6 +109,28 @@ deleteForms = (evt) => {
   $.ajax({
     type: "POST",
     url: url,
+    dataType: 'json',
+    data: form.serialize(), // serializes the form's elements.
+
+  }).done(res => {
+    console.log(res);
+    if (res.success) {
+      $('.modal').modal('hide');
+      location.reload();
+    }
+
+  }).fail(err => {
+    console.log(err);
+  });
+}
+
+deleteContact = (evt) => {
+  evt.preventDefault();
+  const form = $(evt.target);
+  $('#deleteButton2').prop('disabled', 'disabled');
+  $.ajax({
+    type: "POST",
+    url: form.attr('action'),
     dataType: 'json',
     data: form.serialize(), // serializes the form's elements.
 

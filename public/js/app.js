@@ -11053,14 +11053,12 @@ $(function () {
     $(_this).find('[autofocus]').focus();
   });
 
-  $('#createForm').submit(function () {
-    disableSubmitButtons();
+  // Disable buttons on submit
+  $('#createForm,#editForm').submit(function () {
+    $('#submitEdit,#submitCreate').prop('disabled', 'disabled');
   });
 
-  $('#editForm').submit(function () {
-    disableSubmitButtons();
-  });
-
+  // Ajax requests to add emails and phones
   $('#addEmailForm').submit(function (evt) {
     addForms(evt, 'email');
   });
@@ -11069,9 +11067,11 @@ $(function () {
     addForms(evt, 'phone');
   });
 
-  // Loops through the email buttons and listens for a click event.
-  // Takes the the data from the data-index attribute and stores it in
-  // the modal form.
+  /*
+   * Loops through the email buttons and listens for a click event.
+   * Takes the the data from the data-index attribute and stores it in
+   * the modal form. Makes Ajax requests to delete extra emails/phones.
+   */
 
   var _loop = function _loop(i) {
     $('#deleteEmail' + i).on('click', function () {
@@ -11102,12 +11102,14 @@ $(function () {
   $('#deletePhoneForm').submit(function (evt) {
     deleteForms(evt);
   });
+
+  // Delete whole contact confirmation ajax request
+  $('#deleteContactForm').submit(function (evt) {
+    deleteContact(evt);
+  });
 });
 
-disableSubmitButtons = function disableSubmitButtons() {
-  $('#submitEdit,#submitCreate').prop('disabled', 'disabled');
-};
-
+// Functions
 addForms = function addForms(evt, x) {
   evt.preventDefault();
   var form = $(evt.target);
@@ -11159,6 +11161,27 @@ deleteForms = function deleteForms(evt) {
   $.ajax({
     type: "POST",
     url: url,
+    dataType: 'json',
+    data: form.serialize() // serializes the form's elements.
+
+  }).done(function (res) {
+    console.log(res);
+    if (res.success) {
+      $('.modal').modal('hide');
+      location.reload();
+    }
+  }).fail(function (err) {
+    console.log(err);
+  });
+};
+
+deleteContact = function deleteContact(evt) {
+  evt.preventDefault();
+  var form = $(evt.target);
+  $('#deleteButton2').prop('disabled', 'disabled');
+  $.ajax({
+    type: "POST",
+    url: form.attr('action'),
     dataType: 'json',
     data: form.serialize() // serializes the form's elements.
 
