@@ -1,4 +1,4 @@
-{{-- The Email Modal --}}
+{{-- Add Email Modal --}}
 <div class="modal fade" id="addEmailModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -46,6 +46,7 @@
   </div>
 </div>
 
+{{-- Delete Phone Modal --}}
 <div class="modal fade" id="addPhoneModal">
   <div class="modal-dialog">
     <div class="modal-content">

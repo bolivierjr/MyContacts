@@ -133,11 +133,11 @@ class ContactController extends Controller
          */
         $multiples = ['phone', 'email'];
         foreach ($multiples as $multiple) {
-            if (empty($request->input($multiple))) {
+            if (empty($request->input($multiple . '1'))) {
                 $contacts->$multiple = [];
             } else {
                 $contacts->$multiple = [
-                    $request->input($multiple),
+                    $request->input($multiple . '1'),
                 ];
             }
         }
@@ -145,8 +145,6 @@ class ContactController extends Controller
         $contacts->save();
 
         return redirect('/contacts');
-
-
     }
 
     /**
@@ -155,7 +153,8 @@ class ContactController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public
+    function show($id)
     {
         //
     }
@@ -186,7 +185,8 @@ class ContactController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public
+    function update(Request $request, $id)
     {
         $this->mainFormValidation($request);
 

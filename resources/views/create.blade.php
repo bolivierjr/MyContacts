@@ -57,40 +57,40 @@
               </div>
 
               <div class="form-group row">
-                <label for="email" class="col-lg-3 col-form-label text-lg-right">Email</label>
+                <label for="email1" class="col-lg-3 col-form-label text-lg-right">Email</label>
 
                 <div class="col-lg-6">
                   <input
-                      id="email"
+                      id="email1"
                       type="text"
-                      class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                      name="email"
-                      value="{{ old('email') }}"
+                      class="form-control{{ $errors->has('email1') ? ' is-invalid' : '' }}"
+                      name="email1"
+                      value="{{ old('email1') }}"
                   >
 
-                  @if ($errors->has('email'))
+                  @if ($errors->has('email1'))
                     <span class="invalid-feedback">
-                      <strong>{{ $errors->first('email') }}</strong>
+                      <strong>{{ $errors->first('email1') }}</strong>
                     </span>
                   @endif
                 </div>
               </div>
 
               <div class="form-group row">
-                <label for="phone" class="col-lg-3 col-form-label text-lg-right">Phone</label>
+                <label for="phone1" class="col-lg-3 col-form-label text-lg-right">Phone</label>
 
                 <div class="col-lg-6">
                   <input
-                      id="phone"
+                      id="phone1"
                       type="text"
-                      class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
-                      name="phone"
-                      value="{{ old('phone') }}"
+                      class="form-control{{ $errors->has('phone1') ? ' is-invalid' : '' }}"
+                      name="phone1"
+                      value="{{ old('phone1') }}"
                   >
 
-                  @if ($errors->has('phone'))
+                  @if ($errors->has('phone1'))
                     <span class="invalid-feedback">
-                      <strong>{{ $errors->first('phone') }}</strong>
+                      <strong>{{ $errors->first('phone1') }}</strong>
                     </span>
                   @endif
                 </div>

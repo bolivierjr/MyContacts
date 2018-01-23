@@ -135,7 +135,6 @@ deleteContact = (evt) => {
     data: form.serialize(), // serializes the form's elements.
 
   }).done(res => {
-    console.log(res);
     if (res.success) {
       $('.modal').modal('hide');
       location.reload();

@@ -1,3 +1,4 @@
+{{-- Delete Contact Modal --}}
 <div class="modal fade" id="deleteContactModal">
   <div class="modal-dialog">
     <div class="modal-content">

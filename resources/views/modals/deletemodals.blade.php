@@ -1,3 +1,4 @@
+{{-- Delete Email Modals --}}
 <div class="modal fade" id="deleteEmailModal">
   <div class="modal-dialog">
     <div class="modal-content">
